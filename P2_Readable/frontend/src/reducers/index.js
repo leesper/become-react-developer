@@ -3,6 +3,18 @@ import {
   CATEGORIES_REQUEST, CATEGORIES_SUCCESS, CATEGORIES_FAILURE, CATEGORY_CHANGE
 } from "../actions"
 
+// design of state object:
+// {
+//   isPostFetching: false,
+//   category: {
+//     name: "root",
+//     path: "/"
+//   }
+//   posts: {},
+//   comments: {},
+//   categories: []
+// }
+
 const categoryRoot = {
   name: "root",
   path: "/"
@@ -19,14 +31,13 @@ const category = (state = categoryRoot, action) => {
 
 const categories = (state = [categoryRoot], action) => {
   switch (action.type) {
-    case CATEGORY_SUCCESS:
+    case CATEGORIES_SUCCESS:
       return [
         ...state,
         action.categories
       ];
-    case CATEGORY_FAILURE:
+    case CATEGORIES_FAILURE:
       return [
-        ...state,
         {
           name: "error",
           path: action.err
@@ -37,7 +48,7 @@ const categories = (state = [categoryRoot], action) => {
   }
 };
 
-const isCategoriesFetching = (state = false, action) => {
+const isPostFetching = (state = false, action) => {
   switch (action.type) {
     case CATEGORIES_REQUEST:
       return true;
@@ -45,3 +56,11 @@ const isCategoriesFetching = (state = false, action) => {
       return state;
   }
 };
+
+const rootReducer = combineReducers({
+  isPostFetching,
+  category,
+  categories
+});
+
+export default rootReducer;
