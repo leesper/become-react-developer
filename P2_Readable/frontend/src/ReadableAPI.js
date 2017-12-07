@@ -10,7 +10,7 @@ const headers = {
   "Authorization": token
 };
 
-const getAllCategories = () => fetch(`http://${url}/categories`, { headers }).then(rsp => rsp.json());
+const getAllCategories = () => fetch(`http://${url}/categories`, { headers });
 
 const getPostsInCategory = (category) => fetch(`http://${url}/${category}/posts`, { headers }).then(rsp => rsp.json());
 
