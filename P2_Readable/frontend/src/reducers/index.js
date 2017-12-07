@@ -23,9 +23,9 @@ const categoryRoot = {
 const category = (state = categoryRoot, action) => {
   switch (action.type) {
     case CATEGORY_CHANGE:
-      return action.category
+      return action.category;
     default:
-      return state
+      return state;
   }
 };
 
