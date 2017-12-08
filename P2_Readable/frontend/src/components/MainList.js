@@ -3,15 +3,7 @@ import PropTypes from "prop-types"
 import { Row, Col, Menu, List, Avatar, Icon, Button } from "antd"
 
 const SubMenu = Menu.SubMenu
-const listData = [];
-for (let i = 0; i < 5; i++) {
-  listData.push({
-    title: `ant design part ${i}`,
-    author: 'Leesper',
-    commentCount: `${i}`,
-    voteScore: `${i + i}`
-  });
-}
+
 
 const IconText = ({ type, text }) => (
   <span>
@@ -20,15 +12,15 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-const Voter = ({ text }) => (
+const Voter = ({ text, onLike, onDislike }) => (
   <span>
-    <Button icon="like" style={{ marginRight: 8 }} />
+    <Button icon="like" style={{ marginRight: 8 }} onClick={onLike} />
     <span style={{ marginRight: 8}}>{text}</span>
-    <Button icon="dislike" />
+    <Button icon="dislike" onClick={onDislike} />
   </span>
 );
 
-const MainList = () => (
+const MainList = (props) => (
   <div style={{ margin: "30px"}}>
     <Row>
       <Col span={2}>
@@ -37,13 +29,14 @@ const MainList = () => (
       <Col span={22}>
         <Menu
           mode="horizontal"
+          onClick={props.onMenuItemClick}
         >
           <Menu.Item key="new">写新帖子</Menu.Item>
           <SubMenu key="sort" title={<span>排序</span>}>
             <Menu.Item key="byVote">按投票分数</Menu.Item>
             <Menu.Item key="byTTS">按创建时间</Menu.Item>
           </SubMenu>
-          <Menu.Item key="all">all</Menu.Item>
+          <Menu.Item key="all">全部</Menu.Item>
           <Menu.Item key="react">react</Menu.Item>
           <Menu.Item key="redux">redux</Menu.Item>
           <Menu.Item key="udacity">udacity</Menu.Item>
@@ -55,15 +48,15 @@ const MainList = () => (
         <List
           itemLayout="vertical"
           size="large"
-          dataSource={listData}
+          dataSource={props.listData}
           renderItem={item => (
             <List.Item
               key={item.title}
               actions={[
-                <Voter text={item.voteScore}/>,
+                <Voter text={item.voteScore} onLike={props.onLike} onDislike={props.onDislike} />,
                 <IconText type="message" text="2" />,
-                <Button icon="edit" type="primary">Edit</Button>,
-                <Button icon="delete" type="danger">Delete</Button>]}
+                <Button icon="edit" type="primary" onClick={props.onEdit}>Edit</Button>,
+                <Button icon="delete" type="danger" onClick={props.onDelete}>Delete</Button>]}
               >
                 <List.Item.Meta
                   title={item.title}
