@@ -17,7 +17,7 @@ const store = createStore(
 render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Route path="/:path?" component={App} />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

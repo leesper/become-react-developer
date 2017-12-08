@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
 import { Row, Col, Menu, List, Avatar, Icon, Button } from "antd"
 
 const SubMenu = Menu.SubMenu
@@ -34,10 +35,10 @@ const formatDate = (timestamp) => {
 const MainList = (props) => (
   <div style={{ margin: "30px"}}>
     <Row>
-      <Col span={2}>
+      <Col span={4}>
         <header>Readable</header>
       </Col>
-      <Col span={22}>
+      <Col span={10}>
         <Menu
           mode="horizontal"
           onClick={props.onMenuItemClick}
@@ -47,12 +48,24 @@ const MainList = (props) => (
             <Menu.Item key="byVote">按投票分数</Menu.Item>
             <Menu.Item key="byTTS">按创建时间</Menu.Item>
           </SubMenu>
-          {
-            props.categories.map(category => (
-              <Menu.Item key={category.path}>{category.name}</Menu.Item>
-            ))
-          }
         </Menu>
+      </Col>
+      <Col span={10}>
+        {
+          props.categories.map((category) => (
+            <Link
+              key={category.path}
+              style={{ marginLeft: 60 }}
+              to={category.path}
+              onClick={
+                () => {
+                  props.changeCategory(category)
+                  props.loadPosts(category.path)
+                }
+              }
+              >{category.name}</Link>
+          ))
+        }
       </Col>
     </Row>
     <Row>

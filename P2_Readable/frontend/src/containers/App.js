@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { MainList } from "../components"
 import { message } from "antd"
-import { fetchCategories, fetchPosts } from "../actions"
+import { fetchCategories, fetchPosts, categoryChange } from "../actions"
 
 const listData = [];
 for (let i = 0; i < 5; i++) {
@@ -24,6 +24,7 @@ class App extends React.Component {
     this.props.loadPosts(this.props.category.path)
   }
 
+
   render() {
     return (
       <MainList
@@ -34,19 +35,21 @@ class App extends React.Component {
         onLike={this.props.onLike}
         onDislike={this.props.onDislike}
         onMenuItemClick={this.props.onMenuItemClick}
+        loadPosts={this.props.loadPosts}
+        changeCategory={this.props.changeCategory}
       />
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => (
-  {
+const mapStateToProps = (state, ownProps) => {
+  return {
     category: state.category,
     categories: state.categories,
     isPostFetching: state.isPostFetching,
     posts: state.posts
   }
-)
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
@@ -54,9 +57,10 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     onDelete: () => { message.info("delete") },
     onLike: () => { message.info("like") },
     onDislike: () => { message.info("dislike") },
-    onMenuItemClick: ({ key }) => { message.info("menu item" + key) },
+    onMenuItemClick: ({ key }) => { message.info(key) },
     loadCategories: () => { dispatch(fetchCategories()) },
-    loadPosts: (category) => { dispatch(fetchPosts(category))}
+    loadPosts: (category) => { dispatch(fetchPosts(category))},
+    changeCategory: (category) => { dispatch(categoryChange(category)) }
   }
 )
 
