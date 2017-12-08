@@ -16,7 +16,7 @@ import {
 // }
 
 const categoryRoot = {
-  name: "root",
+  name: "全部",
   path: "/"
 };
 
@@ -34,8 +34,8 @@ const categories = (state = [categoryRoot], action) => {
     case CATEGORIES_SUCCESS:
       return [
         ...state,
-        action.categories
-      ];
+        ...action.categories
+      ]
     case CATEGORIES_FAILURE:
       return [
         {

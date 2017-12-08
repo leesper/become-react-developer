@@ -36,10 +36,11 @@ const MainList = (props) => (
             <Menu.Item key="byVote">按投票分数</Menu.Item>
             <Menu.Item key="byTTS">按创建时间</Menu.Item>
           </SubMenu>
-          <Menu.Item key="all">全部</Menu.Item>
-          <Menu.Item key="react">react</Menu.Item>
-          <Menu.Item key="redux">redux</Menu.Item>
-          <Menu.Item key="udacity">udacity</Menu.Item>
+          {
+            props.categories.map(category => (
+              <Menu.Item key={category.path}>{category.name}</Menu.Item>
+            ))
+          }
         </Menu>
       </Col>
     </Row>

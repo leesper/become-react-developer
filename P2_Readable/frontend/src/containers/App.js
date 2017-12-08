@@ -1,7 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
-import MainList from "../components/MainList"
+import { MainList } from "../components"
 import { message } from "antd"
+import { fetchCategories } from "../actions"
 
 const listData = [];
 for (let i = 0; i < 5; i++) {
@@ -19,13 +20,20 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props
-    console.log("dispatch", dispatch)
+    this.props.loadCategories()
   }
 
   render() {
     return (
-      <MainList listData={this.props.listData} />
+      <MainList
+        categories={this.props.categories}
+        listData={this.props.listData}
+        onEdit={this.props.onEdit}
+        onDelete={this.props.onDelete}
+        onLike={this.props.onLike}
+        onDislike={this.props.onDislike}
+        onMenuItemClick={this.props.onMenuItemClick}
+      />
     )
   }
 }
@@ -45,7 +53,8 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     onDelete: () => { message.info("delete") },
     onLike: () => { message.info("like") },
     onDislike: () => { message.info("dislike") },
-    onMenuItemClick: ({ key }) => { message.info("menu item" + key) }
+    onMenuItemClick: ({ key }) => { message.info("menu item" + key) },
+    loadCategories: () => { dispatch(fetchCategories()) }
   }
 )
 
