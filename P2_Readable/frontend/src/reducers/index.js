@@ -1,6 +1,7 @@
 import { combineReducers } from "redux"
 import {
-  CATEGORIES_REQUEST, CATEGORIES_SUCCESS, CATEGORIES_FAILURE, CATEGORY_CHANGE
+  CATEGORIES_REQUEST, CATEGORIES_SUCCESS, CATEGORIES_FAILURE, CATEGORY_CHANGE,
+  POSTS_REQUEST, POSTS_SUCCESS, POSTS_FAILURE
 } from "../actions"
 
 // design of state object:
@@ -46,21 +47,38 @@ const categories = (state = [categoryRoot], action) => {
     default:
       return state;
   }
-};
+}
 
 const isPostFetching = (state = false, action) => {
   switch (action.type) {
-    case CATEGORIES_REQUEST:
-      return true;
+    case POSTS_REQUEST:
+      return true
+    case POSTS_SUCCESS:
+    case POSTS_FAILURE:
+      return false
     default:
-      return state;
+      return state
   }
-};
+}
+
+const posts = (state = {}, action) => {
+  switch (action.type) {
+    case POSTS_SUCCESS:
+        return action.posts
+    case POSTS_FAILURE:
+      return {
+        err: action.err
+      }
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   isPostFetching,
   category,
+  posts,
   categories
-});
+})
 
 export default rootReducer;

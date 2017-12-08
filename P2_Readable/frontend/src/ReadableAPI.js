@@ -11,13 +11,13 @@ const headers = {
 };
 
 // get all of the categories available for the app
-const getAllCategories = () => fetch(`http://${url}/categories`, { headers });
+const getAllCategories = () => fetch(`http://${url}/categories`, { headers })
 
 // get all the posts for a particular category
-const getPostsInCategory = (category) => fetch(`http://${url}/${category}/posts`, { headers }).then(rsp => rsp.json());
+const getPostsInCategory = (category) => fetch(`http://${url}/${category}/posts`, { headers })
 
 // get all of the posts
-const getAllPosts = () => fetch(`http://${url}/posts`, { headers }).then(rsp => rsp.json());
+const getAllPosts = () => fetch(`http://${url}/posts`, { headers })
 
 // add a new post
 const addPost = (id, timestamp, title, body, author, category) =>
