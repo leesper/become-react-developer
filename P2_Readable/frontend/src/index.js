@@ -18,6 +18,7 @@ render(
   <Provider store={store}>
     <BrowserRouter>
       <Route path="/:path?" component={App} />
+      {/* <Route path="/:category/:post_id" component={PostDetail} /> */}
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

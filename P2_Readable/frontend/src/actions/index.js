@@ -1,5 +1,6 @@
 import * as ReadableAPI from '../ReadableAPI'
 
+// actions about categories
 export const CATEGORIES_REQUEST = "CATEGORY_REQUEST"
 export const categoriesRequest = () => ({type: CATEGORIES_REQUEST})
 
@@ -22,6 +23,7 @@ export const fetchCategories = () => (dispatch => {
 export const CATEGORY_CHANGE = "CATEGORY_CHANGE"
 export const categoryChange = (category) => ({type: CATEGORY_CHANGE, category})
 
+// actions about posts
 export const POSTS_REQUEST = "POSTS_REQUEST"
 export const postsRequest = () => ({type: POSTS_REQUEST})
 
@@ -46,5 +48,25 @@ export const fetchPosts = (path) => (dispatch => {
     err => dispatch(postsFailure(err))
   )
   .then(posts => dispatch(postsSuccess(posts)))
-  
+
+})
+
+// actions about comments
+export const COMMENTS_REQUEST = "COMMENTS_REQUEST"
+export const commentsRequest = () => ({type: COMMENTS_REQUEST})
+
+export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS"
+export const commentsSuccess = (comments) => ({type: COMMENTS_SUCCESS, comments})
+
+export const COMMENTS_FAILURE = "COMMENTS_FAILURE"
+export const commentsFailure = (err) => ({type: COMMENTS_FAILURE, err})
+
+export const fetchComments = (postID) => (dispatch => {
+  dispatch(commentsRequest())
+  ReadableAPI.getPostComments(postID)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(commentsFailure(err))
+  )
+  .then(comments => dispatch(commentsSuccess(comments)))
 })

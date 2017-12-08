@@ -30,6 +30,7 @@ class App extends React.Component {
       <MainList
         categories={this.props.categories}
         posts={this.props.posts}
+        onView={this.props.onView}
         onEdit={this.props.onEdit}
         onDelete={this.props.onDelete}
         onLike={this.props.onLike}
@@ -53,6 +54,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
+    onView: () => { message.info("view") },
     onEdit: () => { message.info("edit") },
     onDelete: () => { message.info("delete") },
     onLike: () => { message.info("like") },

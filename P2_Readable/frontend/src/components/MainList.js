@@ -86,7 +86,7 @@ const MainList = (props) => (
                 <Button icon="delete" type="danger" onClick={props.onDelete}>Delete</Button>]}
               >
                 <List.Item.Meta
-                  title={item.title}
+                  title={<Link to={`${item.category}/${item.id}`} exact>{item.title}</Link>}
                   description={item.author}
                 />
             </List.Item>
