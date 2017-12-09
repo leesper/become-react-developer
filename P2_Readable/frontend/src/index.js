@@ -1,7 +1,7 @@
 import React from "react"
 import { createStore, applyMiddleware } from "redux"
 import { render } from "react-dom"
-import App from "./containers/App"
+import { Root, App } from "./containers"
 import { Provider } from "react-redux"
 import { BrowserRouter, Route} from "react-router-dom"
 import reducer from "./reducers"
@@ -15,12 +15,8 @@ const store = createStore(
 )
 
 render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Route path="/:path?" component={App} />
-      {/* <Route path="/:category/:post_id" component={PostDetail} /> */}
-      {/* <PostDetail /> */}
-    </BrowserRouter>
-  </Provider>,
+  <BrowserRouter>
+    <Root store={store} />
+  </BrowserRouter>,
   document.getElementById("root")
 )
