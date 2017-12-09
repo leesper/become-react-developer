@@ -62,17 +62,13 @@ export const COMMENTS_FAILURE = "COMMENTS_FAILURE"
 export const commentsFailure = (err) => ({type: COMMENTS_FAILURE, err})
 
 export const fetchComments = (postID) => ((dispatch, getState) => {
-  const state = getState()
-  const post = state.posts[postID]
-  if (!post) {
-    dispatch(commentsRequest())
-    ReadableAPI.getPostComments(postID)
-    .then(
-      rsp => rsp.json(),
-      err => dispatch(commentsFailure(err))
-    )
-    .then(comments => dispatch(commentsSuccess(comments)))
-  }
+  dispatch(commentsRequest())
+  ReadableAPI.getPostComments(postID)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(commentsFailure(err))
+  )
+  .then(comments => dispatch(commentsSuccess(comments)))
 })
 
 export const POST_DETAIL_REQUEST = "POST_DETAIL_REQUEST"

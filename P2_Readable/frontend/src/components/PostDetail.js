@@ -34,6 +34,7 @@ const PostDetail = (props) => (
     }
     actions={[
       <Button icon="edit" type="primary">Edit</Button>,
+      <Button icon="plus-square-o" type="normal">Add Comment</Button>,
       <Button icon="delete" type="danger">Delete</Button>
     ]}
     >
@@ -74,14 +75,29 @@ const PostDetail = (props) => (
       <p>{props.post ? props.post.body : ""}</p>
       <Divider dashed />
     <List
-      itemLayout="horizontal"
-      dataSource={data}
+      itemLayout="vertical"
+      dataSource={props.comments}
       renderItem={item => (
-        <List.Item>
+        <List.Item
+          actions={[
+            <Voter
+              text={item.voteScore}
+              onLike={props.onLike}
+              onDislike={props.onDislike}
+            />,
+            <IconText
+              type="user"
+              text={item.author}
+            />,
+            <IconText
+              type="calendar"
+              text={formatDate(item.timestamp)}
+            />
+          ]}
+          >
           <List.Item.Meta
-            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-            title={<a href="https://ant.design">{item.title}</a>}
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            key={item.id}
+            title={item.body}
           />
         </List.Item>
       )}

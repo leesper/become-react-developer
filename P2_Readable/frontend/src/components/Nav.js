@@ -6,7 +6,7 @@ const Nav = (props) => (
     <Link
       key={category.path}
       style={{ marginLeft: 60 }}
-      to={category.path}
+      to={category.path === "/" ? category.path : `/${category.path}`}
       onClick={
         () => {
           props.changeCategory(category)

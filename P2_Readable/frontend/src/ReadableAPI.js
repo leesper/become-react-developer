@@ -60,7 +60,7 @@ const deletePost = (id) => fetch(`http://${url}/posts/${id}`, {
 }).then(rsp => rsp.json());
 
 // get all the comments for a single post
-const getPostComments = (id) => fetch(`http://${url}/posts/${id}/comments`, { headers }).then(rsp => rsp.json());
+const getPostComments = (id) => fetch(`http://${url}/posts/${id}/comments`, { headers })
 
 // add a comment to a post
 const addComment = (id, timestamp, body, author, parentId) =>

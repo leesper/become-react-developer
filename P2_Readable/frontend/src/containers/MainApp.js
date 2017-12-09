@@ -21,7 +21,7 @@ class MainApp extends React.Component {
 
   componentDidMount() {
     this.props.loadCategories()
-    this.props.loadPosts(this.props.category.path)
+    this.props.loadPosts(this.props.match.params.category || this.props.category.path)
   }
 
 

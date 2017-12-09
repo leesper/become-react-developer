@@ -86,6 +86,7 @@ const posts = (state = [], action) => {
 const comments = (state = [], action) => {
   switch (action.type) {
     case COMMENTS_SUCCESS:
+      console.log("COMMENTS", action.comments)
       return action.comments
     case COMMENTS_FAILURE:
       return { err: action.err }
