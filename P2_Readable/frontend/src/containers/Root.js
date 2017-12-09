@@ -1,7 +1,7 @@
 import React from "react"
 import { Provider } from "react-redux"
 import { Route } from "react-router-dom"
-import App from "./App"
+import App from "./MainApp"
 import { PostDetail } from "../components"
 
 const Root = ({ store }) => (

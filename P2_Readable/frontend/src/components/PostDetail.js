@@ -1,5 +1,6 @@
 import React from "react"
 import { Card, Button, Row, Col, Divider, List, Avatar } from "antd"
+import { Link } from "react-router-dom"
 
 const { Meta } = Card;
 const data = [
@@ -20,7 +21,7 @@ const data = [
 const PostDetail = (props) => (
   <Card
     style={{ width: 900, margin: "0 auto" }}
-    extra={<Button type="normal">back</Button>}
+    extra={<Link to="/">back</Link>}
     actions={[
       <Button icon="edit" type="primary">Edit</Button>,
       <Button icon="delete" type="danger">Delete</Button>

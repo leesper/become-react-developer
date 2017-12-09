@@ -35,7 +35,7 @@ const categories = (state = [categoryRoot], action) => {
   switch (action.type) {
     case CATEGORIES_SUCCESS:
       return [
-        ...state,
+        categoryRoot,
         ...action.categories
       ]
     case CATEGORIES_FAILURE:
