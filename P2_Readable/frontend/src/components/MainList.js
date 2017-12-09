@@ -4,19 +4,9 @@ import { Link } from "react-router-dom"
 import { Row, Col, Menu, List, Avatar, Icon, Button } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
+import { formatDate } from "../utils"
 
 const SubMenu = Menu.SubMenu
-
-const formatDate = (timestamp) => {
-  const dt = new Date(timestamp)
-  const year = dt.getFullYear()
-  const month = "0" + dt.getMonth()
-  const day = "0" + dt.getDay()
-  const hour = "0" + dt.getHours()
-  const min = "0" + dt.getMinutes()
-  const sec = "0" + dt.getSeconds()
-  return `${year}-${month.substr(-2)}-${day.substr(-2)} ${hour.substr(-2)}:${min.substr(-2)}:${sec.substr(-2)}`
-}
 
 const MainList = (props) => (
   <div style={{ margin: "30px"}}>
@@ -65,6 +55,7 @@ const MainList = (props) => (
               key={item.title}
               actions={[
                 <Voter text={item.voteScore} onLike={props.onLike} onDislike={props.onDislike} />,
+                <IconText type="user" text={item.author} />,
                 <IconText type="message" text={item.commentCount} />,
                 <IconText type="folder" text={item.category} />,
                 <IconText type="calendar" text={formatDate(item.timestamp)} />,
@@ -73,7 +64,6 @@ const MainList = (props) => (
               >
                 <List.Item.Meta
                   title={<Link to={`${item.category}/${item.id}`}>{item.title}</Link>}
-                  description={item.author}
                 />
             </List.Item>
           )}

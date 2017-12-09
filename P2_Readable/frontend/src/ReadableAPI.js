@@ -35,7 +35,7 @@ const addPost = (id, timestamp, title, body, author, category) =>
   }).then(rsp => rsp.json());
 
 // get the details of a single post
-const getPostDetail = (id) => fetch(`http://${url}/posts/${id}`, { headers }).then(rsp => rsp.json());
+const getPostDetail = (id) => fetch(`http://${url}/posts/${id}`, { headers })
 
 // voting on a post
 const votePost = (id, option) =>
