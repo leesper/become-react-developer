@@ -5,6 +5,7 @@ import { Row, Col, Menu, List, Avatar, Icon, Button } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
+import Nav from "./Nav"
 
 const SubMenu = Menu.SubMenu
 
@@ -27,21 +28,11 @@ const MainList = (props) => (
         </Menu>
       </Col>
       <Col span={10}>
-        {
-          props.categories.map((category) => (
-            <Link
-              key={category.path}
-              style={{ marginLeft: 60 }}
-              to={category.path}
-              onClick={
-                () => {
-                  props.changeCategory(category)
-                  props.loadPosts(category.path)
-                }
-              }
-              >{category.name}</Link>
-          ))
-        }
+        <Nav
+          categories={props.categories}
+          changeCategory={props.changeCategory}
+          loadPosts={props.loadPosts}
+        />
       </Col>
     </Row>
     <Row>

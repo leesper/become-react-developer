@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
+import Nav from "./Nav"
 
 const { Meta } = Card;
 const data = [
@@ -24,7 +25,13 @@ const data = [
 const PostDetail = (props) => (
   <Card
     style={{ width: 900, margin: "0 auto" }}
-    extra={<Link to="/">back</Link>}
+    extra={
+      props.categories && <Nav
+        categories={props.categories}
+        changeCategory={props.changeCategory}
+        loadPosts={props.loadPosts}
+      />
+    }
     actions={[
       <Button icon="edit" type="primary">Edit</Button>,
       <Button icon="delete" type="danger">Delete</Button>
