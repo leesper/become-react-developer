@@ -17,9 +17,9 @@ const store = createStore(
 render(
   <Provider store={store}>
     <BrowserRouter>
-      {/* <Route path="/:path?" component={App} /> */}
+      <Route path="/:path?" component={App} />
       {/* <Route path="/:category/:post_id" component={PostDetail} /> */}
-      <PostDetail />
+      {/* <PostDetail /> */}
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

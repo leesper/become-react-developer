@@ -2,24 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 import { Row, Col, Menu, List, Avatar, Icon, Button } from "antd"
+import IconText from "./IconText"
+import Voter from "./Voter"
 
 const SubMenu = Menu.SubMenu
-
-
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
-
-const Voter = ({ text, onLike, onDislike }) => (
-  <span>
-    <Button icon="like" style={{ marginRight: 8 }} onClick={onLike} />
-    <span style={{ marginRight: 8}}>{text}</span>
-    <Button icon="dislike" onClick={onDislike} />
-  </span>
-);
 
 const formatDate = (timestamp) => {
   const dt = new Date(timestamp)
