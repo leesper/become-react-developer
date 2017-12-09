@@ -92,6 +92,16 @@ const PostDetail = (props) => (
             <IconText
               type="calendar"
               text={formatDate(item.timestamp)}
+            />,
+            <Button
+              icon="edit"
+              type="primary"
+              onClick={props.onEdit}
+            />,
+            <Button
+              icon="delete"
+              type="danger"
+              onClick={props.onDelete}
             />
           ]}
           >

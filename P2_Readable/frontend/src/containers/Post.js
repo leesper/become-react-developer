@@ -29,6 +29,8 @@ class Poster extends React.Component {
         post={this.props.post}
         onLike={this.props.onLike}
         onDislike={this.props.onDislike}
+        onEdit={this.props.onEdit}
+        onDelete={this.props.onDelete}
       />
     )
   }
@@ -55,7 +57,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   loadPosts: (category) => { dispatch(fetchPosts(category))},
   loadCategories: () => { dispatch(fetchCategories()) },
   loadComments: () => { dispatch(fetchComments(ownProps.match.params.post_id)) },
-  changeCategory: (category) => { dispatch(categoryChange(category)) }
+  changeCategory: (category) => { dispatch(categoryChange(category)) },
+  onEdit: () => { message.info("edit") },
+  onDelete: () => { message.info("delete") }
 })
 
 const Post = connect(mapStateToProps, mapDispatchToProps)(Poster)
