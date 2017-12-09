@@ -97,7 +97,7 @@ const PostDetail = (props) => (
           >
           <List.Item.Meta
             key={item.id}
-            title={item.body}
+            description={item.body}
           />
         </List.Item>
       )}
