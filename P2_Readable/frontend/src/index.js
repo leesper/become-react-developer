@@ -5,8 +5,8 @@ import App from "./containers/App"
 import { Provider } from "react-redux"
 import { BrowserRouter, Route} from "react-router-dom"
 import reducer from "./reducers"
-import MainList from "./components/MainList"
 import thunk  from "redux-thunk"
+import { PostDetail } from "./components"
 import 'antd/dist/antd.css';
 
 const store = createStore(
@@ -17,8 +17,9 @@ const store = createStore(
 render(
   <Provider store={store}>
     <BrowserRouter>
-      <Route path="/:path?" component={App} />
+      {/* <Route path="/:path?" component={App} /> */}
       {/* <Route path="/:category/:post_id" component={PostDetail} /> */}
+      <PostDetail />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

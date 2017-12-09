@@ -1,3 +1,4 @@
 import MainList from "./MainList"
+import PostDetail from "./PostDetail"
 
-export { MainList }
+export { MainList, PostDetail }
