@@ -23,7 +23,6 @@ class MainList extends React.Component {
   }
 
   onEdit = (title, author, content) => {
-    console.log(title, author, content)
     this.setState({
         title: title,
         author: author,

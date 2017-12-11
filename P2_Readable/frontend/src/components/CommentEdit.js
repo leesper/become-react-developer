@@ -73,6 +73,13 @@ class CommentEditor extends React.Component {
   }
 }
 
-const CommentEdit = Form.create()(CommentEditor)
+const CommentEdit = Form.create({
+  mapPropsToFields(props) {
+    return {
+      author: Form.createFormField({value: props.author}),
+      comment: Form.createFormField({value: props.comment})
+    }
+  }
+})(CommentEditor)
 
 export default CommentEdit

@@ -29,7 +29,6 @@ class PostEditor extends React.Component {
     const authorError = isFieldTouched('author') && getFieldError('author');
     const contentError = isFieldTouched('content') && getFieldError('content');
     const title = this.props.title
-    console.log("PROPS FUCK", title)
     return (
       <Modal
         title="Edit"
@@ -90,6 +89,14 @@ class PostEditor extends React.Component {
   }
 }
 
-const PostEdit = Form.create()(PostEditor)
+const PostEdit = Form.create({
+  mapPropsToFields(props) {
+    return {
+      title: Form.createFormField({value: props.title}),
+      author: Form.createFormField({value: props.author}),
+      content: Form.createFormField({value: props.content})
+    }
+  }
+})(PostEditor)
 
 export default PostEdit
