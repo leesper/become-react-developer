@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
-import { Row, Col, Menu, List, Avatar, Icon, Button } from "antd"
+import { Row, Col, Menu, List, Avatar, Icon, Button, message } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
@@ -23,18 +23,24 @@ class MainList extends React.Component {
   }
 
   onEdit = (title, author, content) => {
-    this.setState(
-      {
+    console.log(title, author, content)
+    this.setState({
         title: title,
         author: author,
         content: content,
         visible: true
-      }
-    )
+    })
+  }
+
+  onMenuItemClick = ({ key }) => {
+    message.info(key)
+    if (key === "new") {
+      this.onEdit()
+    }
   }
 
   handleOK = () => {
-    console.log("handle ok")
+    console.log("handle ok", this.state)
     this.setState({
       loading: true,
     })
@@ -48,7 +54,6 @@ class MainList extends React.Component {
   }
 
   handleCancel = () => {
-    console.log("handle cancel")
     this.setState({
       visible: false
     })
@@ -64,7 +69,7 @@ class MainList extends React.Component {
           <Col span={10}>
             <Menu
               mode="horizontal"
-              onClick={this.props.onMenuItemClick}
+              onClick={this.onMenuItemClick}
             >
               <Menu.Item key="new">写新帖子</Menu.Item>
               <SubMenu key="sort" title={<span>排序</span>}>

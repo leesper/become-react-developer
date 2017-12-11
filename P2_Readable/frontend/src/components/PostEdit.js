@@ -1,19 +1,33 @@
 import React from "react"
-import { Modal, Input } from "antd"
+import { Modal, Row, Col, Input } from "antd"
 
-const { TextArea } = Input
-const PostEdit = ({ visible, loading, handleOK, handleCancel, title, author, content }) => (
-  <Modal
-    title="Edit"
-    visible={visible}
-    confirmLoading={loading}
-    onOk={handleOK}
-    onCancel={handleCancel}
-    >
-      <Input placeholder={title ? "" : "Title"} defaultValue={title ? title : ""} />
-      <Input placeholder={author ? "" : "Author"} defaultValue={author ? author : ""} />
-      <TextArea placeholder={content ? "" : "content"} defaultValue={content ? content : ""} autosize={{ minRows: 4, maxRows: 10 }} />
-  </Modal>
-)
+class PostEdit extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e)
+  }
+
+  render() {
+    console.log("POST EDIT", this.props)
+    return (
+      <Modal
+        title="Edit"
+        visible={this.props.visible}
+        confirmLoading={this.props.loading}
+        onOk={this.props.handleOK}
+        onCancel={this.props.handleCancel}
+      >
+        <span>Title: <Input placeholder={this.props.title} /></span>
+        <span>Author: <Input placeholder={this.props.author} /></span>
+        <span>Content: <Input placeholder={this.props.content} autosize={{ minRows: 4, maxRows: 10 }} /></span>
+
+      </Modal>
+    )
+  }
+}
 
 export default PostEdit
