@@ -6,6 +6,7 @@ import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
 import Nav from "./Nav"
+import PostEdit from "./PostEdit"
 
 const SubMenu = Menu.SubMenu
 
@@ -58,6 +59,13 @@ const MainList = (props) => (
                 />
             </List.Item>
           )}
+        />
+      </Col>
+    </Row>
+    <Row>
+      <Col span={24}>
+        <PostEdit
+          visible={false}
         />
       </Col>
     </Row>
