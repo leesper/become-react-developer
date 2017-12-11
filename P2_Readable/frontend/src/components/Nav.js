@@ -9,6 +9,7 @@ const Nav = (props) => (
       to={category.path === "/" ? category.path : `/${category.path}`}
       onClick={
         () => {
+          console.log("FUCK", props.changeCategory)
           props.changeCategory(category)
           props.loadPosts(category.path)
         }

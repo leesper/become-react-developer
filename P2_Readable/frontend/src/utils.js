@@ -8,3 +8,7 @@ export const formatDate = (timestamp) => {
   const sec = "0" + dt.getSeconds()
   return `${year}-${month.substr(-2)}-${day.substr(-2)} ${hour.substr(-2)}:${min.substr(-2)}:${sec.substr(-2)}`
 }
+
+export function hasErrors(fieldsError) {
+  return Object.keys(fieldsError).some(field => fieldsError[field]);
+}

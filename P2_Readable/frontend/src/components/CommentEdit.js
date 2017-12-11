@@ -1,17 +1,78 @@
 import React from "react"
-import { Modal, Input } from "antd"
+import { Modal, Form, Icon, Input, Button } from "antd"
+import { hasErrors } from "../utils"
 
-const CommentEdit = ({ visible, loading, author, comment, handleOK, handleCancel }) => (
-  <Modal
-    title="Comment"
-    visible={visible}
-    confirmLoading={loading}
-    onOk={handleOK}
-    onCancel={handleCancel}
-    >
-      <Input placeholder={author ? "" : "Author"} defaultValue={author ? author : ""} />
-      <Input placeholder={comment ? "" : "comment"} defaultValue={comment ? comment : ""} />
-  </Modal>
-)
+const FormItem = Form.Item
+class CommentEditor extends React.Component {
+  componentDidMount() {
+    // To disabled submit button at the beginning.
+    this.props.form.validateFields();
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  render() {
+    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+
+    // Only show error after a field is touched.
+    const authorError = isFieldTouched('author') && getFieldError('author');
+    const commentError = isFieldTouched('comment') && getFieldError('comment');
+    return (
+      <Modal
+        title="Comment"
+        visible={this.props.visible}
+        confirmLoading={this.props.loading}
+        footer={null}
+        >
+          <Form layout="vertical" onSubmit={this.handleSubmit}>
+            <FormItem
+              validateStatus={authorError ? 'error' : ''}
+              help={authorError || ''}
+              >
+                {getFieldDecorator('author', {
+                  rules: [{ required: true, message: 'Please input author!' }],
+                })(
+                  <Input placeholder="author" />
+                )}
+            </FormItem>
+            <FormItem
+              validateStatus={commentError ? 'error' : ''}
+              help={commentError || ''}
+              >
+                {getFieldDecorator('comment', {
+                  rules: [{ required: true, message: 'Please input comment!' }],
+                })(
+                  <Input placeholder="comment" />
+                )}
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={hasErrors(getFieldsError())}
+              >
+                OK
+              </Button>
+              <Button
+                type="normal"
+                onClick={this.props.handleCancel}
+              >
+                Cancel
+              </Button>
+            </FormItem>
+          </Form>
+        </Modal>
+    )
+  }
+}
+
+const CommentEdit = Form.create()(CommentEditor)
 
 export default CommentEdit

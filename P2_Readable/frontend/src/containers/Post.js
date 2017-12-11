@@ -31,6 +31,8 @@ class Poster extends React.Component {
         onDislike={this.props.onDislike}
         onEdit={this.props.onEdit}
         onDelete={this.props.onDelete}
+        changeCategory={this.props.changeCategory}
+        loadPosts={this.props.loadPosts}
       />
     )
   }
