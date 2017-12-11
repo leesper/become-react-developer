@@ -10,6 +10,7 @@ class PostEditor extends React.Component {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -21,12 +22,14 @@ class PostEditor extends React.Component {
 
 
   render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, setFieldsValue } = this.props.form;
 
     // Only show error after a field is touched.
     const titleError = isFieldTouched('title') && getFieldError('title');
     const authorError = isFieldTouched('author') && getFieldError('author');
     const contentError = isFieldTouched('content') && getFieldError('content');
+    const title = this.props.title
+    console.log("PROPS FUCK", title)
     return (
       <Modal
         title="Edit"
@@ -40,7 +43,7 @@ class PostEditor extends React.Component {
               help={titleError || ''}
               >
                 {getFieldDecorator('title', {
-                  rules: [{ required: true, message: 'Please input title!' }],
+                  rules: [{ required: true, message: 'Please input title!' }]
                 })(
                   <Input placeholder="title" />
                 )}
