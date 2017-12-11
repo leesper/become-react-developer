@@ -1,13 +1,11 @@
 import React from "react"
-import { Card, Button, Row, Col, Divider, List, Avatar } from "antd"
-import { Link } from "react-router-dom"
+import { Card, Button, Row, Col, Divider, List } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
 import Nav from "./Nav"
 import CommentEdit from "./CommentEdit"
 
-const { Meta } = Card;
 class PostDetail extends React.Component {
   constructor(props) {
     super(props)

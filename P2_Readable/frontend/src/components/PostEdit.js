@@ -1,5 +1,5 @@
 import React from "react"
-import { Modal, Form, Icon, Input, Button } from "antd"
+import { Modal, Form, Input, Button } from "antd"
 import { hasErrors } from "../utils"
 
 
@@ -22,19 +22,19 @@ class PostEditor extends React.Component {
 
 
   render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, setFieldsValue } = this.props.form;
+    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
     const titleError = isFieldTouched('title') && getFieldError('title');
     const authorError = isFieldTouched('author') && getFieldError('author');
     const contentError = isFieldTouched('content') && getFieldError('content');
-    const title = this.props.title
     return (
       <Modal
         title="Edit"
         visible={this.props.visible}
         confirmLoading={this.props.loading}
         footer={null}
+        closable={false}
         >
           <Form layout="vertical" onSubmit={this.handleSubmit}>
             <FormItem

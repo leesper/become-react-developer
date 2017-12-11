@@ -1,5 +1,5 @@
 import React from "react"
-import { Modal, Form, Icon, Input, Button } from "antd"
+import { Modal, Form, Input, Button } from "antd"
 import { hasErrors } from "../utils"
 
 const FormItem = Form.Item
@@ -30,6 +30,7 @@ class CommentEditor extends React.Component {
         visible={this.props.visible}
         confirmLoading={this.props.loading}
         footer={null}
+        closable={false}
         >
           <Form layout="vertical" onSubmit={this.handleSubmit}>
             <FormItem

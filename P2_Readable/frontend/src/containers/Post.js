@@ -11,10 +11,6 @@ import {
 import { message } from "antd"
 
 class Poster extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.loadPostDetail()
     this.props.loadCategories()

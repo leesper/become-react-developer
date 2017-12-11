@@ -15,10 +15,6 @@ for (let i = 0; i < 5; i++) {
 }
 
 class MainApp extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.loadCategories()
     this.props.loadPosts(this.props.match.params.category || this.props.category.path)

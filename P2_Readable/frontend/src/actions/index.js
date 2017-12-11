@@ -78,7 +78,7 @@ export const POST_DETAIL_SUCCESS = "POST_DETAIL_SUCCESS"
 export const postDetailSuccess = (post) => ({type: POST_DETAIL_SUCCESS, post})
 
 export const POST_DETAIL_FAILURE = "POST_DETAIL_FAILURE"
-export const postDetailFailure = (err) => {{type: POST_DETAIL_FAILURE, err}}
+export const postDetailFailure = (err) => ({type: POST_DETAIL_FAILURE, err})
 
 export const fetchPostDetail = (postID) => ((dispatch, getState) => {
   const state = getState()

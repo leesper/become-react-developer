@@ -3,7 +3,6 @@ import { Provider } from "react-redux"
 import { Route } from "react-router-dom"
 import App from "./MainApp"
 import Post from "./Post"
-import { PostDetail } from "../components"
 
 const Root = ({ store }) => (
   <Provider store={store}>
