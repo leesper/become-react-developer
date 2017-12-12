@@ -19,7 +19,6 @@ class MainList extends React.Component {
       author: "",
       content: "",
       category: "",
-      loading: false,
       visible: false
     }
   }
@@ -42,18 +41,9 @@ class MainList extends React.Component {
     }
   }
 
-  handleOK = () => {
-    console.log("handle ok", this.state)
-    this.setState({
-      loading: true,
-    })
-    const self = this
-    setTimeout(() => {
-      self.setState({
-        visible: false,
-        loading: false
-      })
-    }, 2000)
+  handleAddPost = (id, timestamp, title, content, author, category) => {
+    console.log(id, timestamp, title, content, author, category)
+    this.props.addPost(id, timestamp, title, content, author, category)
   }
 
   handleCancel = () => {
@@ -131,7 +121,7 @@ class MainList extends React.Component {
               author={this.state.author}
               content={this.state.content}
               categories={this.props.categories}
-              handleOK={this.handleOK}
+              handleAddPost={this.handleAddPost}
               handleCancel={this.handleCancel}
             />
           </Col>

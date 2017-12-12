@@ -1,6 +1,6 @@
 import React from "react"
 import { Modal, Form, Input, Button, Select } from "antd"
-import { hasErrors } from "../utils"
+import { hasErrors, guid } from "../utils"
 
 
 const FormItem = Form.Item
@@ -17,6 +17,11 @@ class PostEditor extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values, this.props.postID);
+        if (this.props.postID) {
+          this.props.handleEditPost(this.props.postID, values.title, values.content)
+        } else {
+          this.props.handleAddPost(guid(), Date.now(), values.title, values.content, values.author, values.category)
+        }
       }
     });
   }

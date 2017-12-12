@@ -113,3 +113,21 @@ export const addPost = (id, timestamp, title, body, author, category) => (dispat
   )
   .then(postID => dispatch(addPostSuccess(postID)))
 })
+
+export const EDIT_POST_REQUEST = "EDIT_POST_REQUEST"
+export const editPostRequest = () => ({type: EDIT_POST_REQUEST})
+
+export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS"
+export const editPostSuccess = () => ({type: EDIT_POST_SUCCESS})
+
+export const EDIT_POST_FAILURE = "EDIT_POST_FAILURE"
+export const editPostFailure = () => ({type: EDIT_POST_FAILURE})
+
+export const editPost = (id, title, body) => (dispatch => {
+  dispatch(editPostRequest())
+  ReadableAPI.editPost(id, title, body)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(editPostFailure(err))
+  )
+})

@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { MainList } from "../components"
 import { message } from "antd"
-import { fetchCategories, fetchPosts, categoryChange } from "../actions"
+import { fetchCategories, fetchPosts, categoryChange, addPost, editPost } from "../actions"
 
 const listData = [];
 for (let i = 0; i < 5; i++) {
@@ -20,7 +20,6 @@ class MainApp extends React.Component {
     this.props.loadPosts(this.props.match.params.category || this.props.category.path)
   }
 
-
   render() {
     return (
       <MainList
@@ -34,6 +33,8 @@ class MainApp extends React.Component {
         onMenuItemClick={this.props.onMenuItemClick}
         loadPosts={this.props.loadPosts}
         changeCategory={this.props.changeCategory}
+        addPost={this.props.addPost}
+        editPost={this.props.editPost}
       />
     )
   }
@@ -58,7 +59,13 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     onMenuItemClick: ({ key }) => { message.info(key) },
     loadCategories: () => { dispatch(fetchCategories()) },
     loadPosts: (category) => { dispatch(fetchPosts(category))},
-    changeCategory: (category) => { dispatch(categoryChange(category)) }
+    changeCategory: (category) => { dispatch(categoryChange(category)) },
+    addPost: (id, timestamp, title, body, author, category) => {
+      dispatch(addPost(id, timestamp, title, body, author, category))
+    },
+    editPost: (id, title, body) => {
+      dispatch(editPost(id, title, body))
+    },
   }
 )
 

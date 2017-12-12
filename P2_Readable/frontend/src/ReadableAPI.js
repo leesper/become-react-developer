@@ -7,7 +7,9 @@ if (!token) {
 }
 
 const headers = {
-  "Authorization": token
+  "Authorization": token,
+  "Accept": "application/json, text/plain, */*",
+  "Content-Type": "application/json"
 };
 
 // get all of the categories available for the app
@@ -32,7 +34,7 @@ const addPost = (id, timestamp, title, body, author, category) =>
       author,
       category
     })
-  }).then(rsp => rsp.json());
+  })
 
 // get the details of a single post
 const getPostDetail = (id) => fetch(`http://${url}/posts/${id}`, { headers })
@@ -51,7 +53,7 @@ const editPost = (id, title, body) =>
     method: "PUT",
     headers,
     body: JSON.stringify({title, body})
-  }).then(rsp => rsp.json());
+  })
 
 // sets the deleted flag for a post to true
 const deletePost = (id) => fetch(`http://${url}/posts/${id}`, {
