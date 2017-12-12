@@ -7,7 +7,8 @@ import {
   categoryChange,
   fetchCategories,
   fetchComments,
-  votePost
+  votePost,
+  editPost
 } from "../actions"
 import { message } from "antd"
 
@@ -29,6 +30,7 @@ class Poster extends React.Component {
         changeCategory={this.props.changeCategory}
         loadPosts={this.props.loadPosts}
         votePost={this.props.votePost}
+        editPost={this.props.editPost}
       />
     )
   }
@@ -56,6 +58,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   changeCategory: (category) => { dispatch(categoryChange(category)) },
   votePost: (id, option) => {
     dispatch(votePost(id, option))
+  },
+  editPost: (id, title, body) => {
+    dispatch(editPost(id, title, body))
   },
   onEdit: () => { message.info("edit") },
   onDelete: () => { message.info("delete") }

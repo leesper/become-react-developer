@@ -38,7 +38,6 @@ class PostEditor extends React.Component {
       <Modal
         title="Edit"
         visible={this.props.visible}
-        confirmLoading={this.props.loading}
         footer={null}
         closable={false}
         >
@@ -54,20 +53,6 @@ class PostEditor extends React.Component {
                 )}
             </FormItem>
 
-            <FormItem>
-                {getFieldDecorator('category', {
-                  initialValue: "react"
-                })(
-                  <Select>
-                    {
-                      this.props.categories
-                      .filter(category => category.path !== "/")
-                      .map(category => <Option key={category.path} value={category.path}>{category.name}</Option>)
-                    }
-                  </Select>
-                )}
-            </FormItem>
-
             {
               !this.props.postID &&
               <FormItem
@@ -79,6 +64,23 @@ class PostEditor extends React.Component {
                 })(
                   <Input placeholder="author" />
                 )}
+              </FormItem>
+            }
+
+            {
+              !this.props.postID &&
+              <FormItem>
+                  {getFieldDecorator('category', {
+                    initialValue: "react"
+                  })(
+                    <Select>
+                      {
+                        this.props.categories
+                        .filter(category => category.path !== "/")
+                        .map(category => <Option key={category.path} value={category.path}>{category.name}</Option>)
+                      }
+                    </Select>
+                  )}
               </FormItem>
             }
 

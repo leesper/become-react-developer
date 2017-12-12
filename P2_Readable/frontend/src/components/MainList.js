@@ -140,7 +140,6 @@ class MainList extends React.Component {
           <Col span={24}>
             <PostEdit
               visible={this.state.visible}
-              loading={this.props.isPostUpdating}
               postID={this.state.postID}
               title={this.state.title}
               author={this.state.author}

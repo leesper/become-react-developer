@@ -5,15 +5,19 @@ import Voter from "./Voter"
 import { formatDate } from "../utils"
 import Nav from "./Nav"
 import CommentEdit from "./CommentEdit"
+import PostEdit from "./PostEdit"
 
 class PostDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      author: "Author",
+      commentAuthor: "Author",
       comment: "comment",
-      loading: false,
-      visible: false
+      commentVisible: false,
+      postID: "",
+      postTitle: "",
+      postContent: "",
+      postVisible: false
     }
   }
 
@@ -25,22 +29,25 @@ class PostDetail extends React.Component {
     })
   }
 
-  handleOK = () => {
+  onPostEdit = (id, title, body) => {
     this.setState({
-      loading: true
+      postID: id,
+      postTitle: title,
+      postContent: body,
+      postVisible: true
     })
-
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        loading: false
-      })
-    }, 2000)
   }
 
-  handleCancel = () => {
+  handleEditPost = (id, title, body) => {
+    this.props.editPost(id, title, body)
     this.setState({
-      visible: false
+      postVisible: false
+    })
+  }
+
+  handlePostCancel = () => {
+    this.setState({
+      postVisible: false
     })
   }
 
@@ -57,7 +64,12 @@ class PostDetail extends React.Component {
           />
         }
         actions={[
-          <Button icon="edit" type="primary">Edit</Button>,
+          <Button
+            icon="edit"
+            type="primary"
+            onClick={() => this.onPostEdit(this.props.post.id, this.props.post.title, this.props.post.body)}>
+            Edit
+          </Button>,
           <Button icon="plus-square-o" type="normal">Add Comment</Button>,
           <Button icon="delete" type="danger">Delete</Button>
         ]}
@@ -72,8 +84,8 @@ class PostDetail extends React.Component {
             <Col span={6}>
               <Voter
                 text={this.props.post ? this.props.post.voteScore : ""}
-                onLike={() => this.props.votePost(this.props.post.id, "upVote")}
-                onDislike={() => this.props.votePost(this.props.post.id, "downVote")}
+                onLike={() => this.props.post && this.props.votePost(this.props.post.id, "upVote")}
+                onDislike={() => this.props.post && this.props.votePost(this.props.post.id, "downVote")}
               />,
             </Col>
             <Col span={6}>
@@ -136,8 +148,18 @@ class PostDetail extends React.Component {
             </List.Item>
           )}
         />
+        <PostEdit
+          visible={this.state.postVisible}
+          postID={this.props.post && this.props.post.id}
+          title={this.props.post && this.props.post.title}
+          author={this.props.post && this.props.post.author}
+          content={this.props.post && this.props.post.body}
+          categories={this.props.categories}
+          handleEditPost={this.handleEditPost}
+          handleCancel={this.handlePostCancel}
+        />
         <CommentEdit
-          visible={this.state.visible}
+          visible={this.state.commentVisible}
           loading={this.state.loading}
           author={this.state.author}
           comment={this.state.comment}
