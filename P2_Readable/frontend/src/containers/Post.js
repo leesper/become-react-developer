@@ -8,7 +8,8 @@ import {
   fetchCategories,
   fetchComments,
   votePost,
-  editPost
+  editPost,
+  deletePost
 } from "../actions"
 import { message } from "antd"
 
@@ -31,6 +32,8 @@ class Poster extends React.Component {
         loadPosts={this.props.loadPosts}
         votePost={this.props.votePost}
         editPost={this.props.editPost}
+        deletePost={this.props.deletePost}
+        history={this.props.history}
       />
     )
   }
@@ -62,8 +65,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   editPost: (id, title, body) => {
     dispatch(editPost(id, title, body))
   },
-  onEdit: () => { message.info("edit") },
-  onDelete: () => { message.info("delete") }
+  deletePost: (id) => {
+    dispatch(deletePost(id))
+  }
 })
 
 const Post = connect(mapStateToProps, mapDispatchToProps)(Poster)

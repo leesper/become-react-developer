@@ -11,8 +11,8 @@ class PostDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      commentAuthor: "Author",
-      comment: "comment",
+      commentAuthor: "",
+      comment: "",
       commentVisible: false,
       postID: "",
       postTitle: "",
@@ -21,11 +21,11 @@ class PostDetail extends React.Component {
     }
   }
 
-  onEdit = (author, comment) => {
+  onCommentEdit = (author, comment) => {
     this.setState({
-      author: author,
+      commentAuthor: author,
       comment: comment,
-      visible: true
+      commentVisible: true
     })
   }
 
@@ -51,6 +51,12 @@ class PostDetail extends React.Component {
     })
   }
 
+  handleCommentCancel = () => {
+    this.setState({
+      commentVisible: false
+    })
+  }
+
   render() {
     return (
       <Card
@@ -67,11 +73,27 @@ class PostDetail extends React.Component {
           <Button
             icon="edit"
             type="primary"
-            onClick={() => this.onPostEdit(this.props.post.id, this.props.post.title, this.props.post.body)}>
+            onClick={() => this.onPostEdit(this.props.post.id, this.props.post.title, this.props.post.body)}
+            >
             Edit
           </Button>,
-          <Button icon="plus-square-o" type="normal">Add Comment</Button>,
-          <Button icon="delete" type="danger">Delete</Button>
+          <Button
+            icon="plus-square-o"
+            type="normal"
+            onClick={() => this.onCommentEdit()}
+            >
+            Add Comment
+          </Button>,
+          <Button
+            icon="delete"
+            type="danger"
+            onClick={() => {
+              this.props.deletePost(this.props.post.id)
+              this.props.history.push("/")
+            }}
+            >
+            Delete
+          </Button>
         ]}
         >
           <Row>
@@ -132,12 +154,11 @@ class PostDetail extends React.Component {
                 <Button
                   icon="edit"
                   type="primary"
-                  onClick={() => this.onEdit(item.author, item.body)}
+                  onClick={() => this.onCommentEdit(item.author, item.body)}
                 />,
                 <Button
                   icon="delete"
                   type="danger"
-                  onClick={this.props.onDelete}
                 />
               ]}
               >
@@ -160,11 +181,10 @@ class PostDetail extends React.Component {
         />
         <CommentEdit
           visible={this.state.commentVisible}
-          loading={this.state.loading}
-          author={this.state.author}
+          author={this.state.commentAuthor}
           comment={this.state.comment}
           handleOK={this.handleOK}
-          handleCancel={this.handleCancel}
+          handleCancel={this.handleCommentCancel}
         />
       </Card>
     )
