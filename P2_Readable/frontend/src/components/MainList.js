@@ -1,7 +1,7 @@
 import React from "react"
 // import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
-import { Row, Col, Menu, List, Button, message } from "antd"
+import { Row, Col, Menu, List, Button, message, Spin } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
@@ -42,8 +42,17 @@ class MainList extends React.Component {
   }
 
   handleAddPost = (id, timestamp, title, content, author, category) => {
-    console.log(id, timestamp, title, content, author, category)
     this.props.addPost(id, timestamp, title, content, author, category)
+    this.setState({
+      visible: false
+    })
+  }
+
+  handleEditPost = (id, title, body) => {
+    this.props.editPost(id, title, body)
+    this.setState({
+      visible: false
+    })
   }
 
   handleCancel = () => {
@@ -82,47 +91,52 @@ class MainList extends React.Component {
         </Row>
         <Row>
           <Col span={24}>
-            <List
-              itemLayout="vertical"
-              size="large"
-              dataSource={this.props.posts}
-              renderItem={item => (
-                <List.Item
-                  key={item.title}
-                  actions={[
-                    <Voter text={item.voteScore} onLike={this.props.onLike} onDislike={this.props.onDislike} />,
-                    <IconText type="user" text={item.author} />,
-                    <IconText type="message" text={item.commentCount} />,
-                    <IconText type="folder" text={item.category} />,
-                    <IconText type="calendar" text={formatDate(item.timestamp)} />,
-                    <Button
-                      icon="edit"
-                      type="primary"
-                      onClick={() => this.onEdit(item.id, item.title, item.author, item.body, item.category)}
-                      >
-                        Edit
-                    </Button>,
-                    <Button icon="delete" type="danger" onClick={this.props.onDelete}>Delete</Button>]}
+            {
+              this.props.isPostFetching ?
+              <Spin /> :
+              <List
+                itemLayout="vertical"
+                size="large"
+                dataSource={this.props.posts}
+                renderItem={item => (
+                  <List.Item
+                    key={item.title}
+                    actions={[
+                      <Voter text={item.voteScore} onLike={this.props.onLike} onDislike={this.props.onDislike} />,
+                      <IconText type="user" text={item.author} />,
+                      <IconText type="message" text={item.commentCount} />,
+                      <IconText type="folder" text={item.category} />,
+                      <IconText type="calendar" text={formatDate(item.timestamp)} />,
+                      <Button
+                        icon="edit"
+                        type="primary"
+                        onClick={() => this.onEdit(item.id, item.title, item.author, item.body, item.category)}
+                        >
+                          Edit
+                        </Button>,
+                        <Button icon="delete" type="danger" onClick={this.props.onDelete}>Delete</Button>]}
                   >
                     <List.Item.Meta
                       title={<Link to={`${item.category}/${item.id}`}>{item.title}</Link>}
                     />
-                </List.Item>
-              )}
-            />
+                  </List.Item>
+                )}
+              />
+            }
           </Col>
         </Row>
         <Row>
           <Col span={24}>
             <PostEdit
               visible={this.state.visible}
-              loading={this.state.loading}
+              loading={this.props.isPostUpdating}
               postID={this.state.postID}
               title={this.state.title}
               author={this.state.author}
               content={this.state.content}
               categories={this.props.categories}
               handleAddPost={this.handleAddPost}
+              handleEditPost={this.handleEditPost}
               handleCancel={this.handleCancel}
             />
           </Col>

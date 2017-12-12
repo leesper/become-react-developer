@@ -110,7 +110,7 @@ export const ADD_POST_REQUEST = "ADD_POST_REQUEST"
 export const addPostRequest = () => ({type: ADD_POST_REQUEST})
 
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS"
-export const addPostSuccess = (postID) => ({type: ADD_POST_SUCCESS, postID})
+export const addPostSuccess = (post) => ({type: ADD_POST_SUCCESS, post})
 
 export const ADD_POST_FAILURE = "ADD_POST_FAILURE"
 export const addPostFailure = (err) => ({type: ADD_POST_FAILURE, err})
@@ -122,14 +122,14 @@ export const addPost = (id, timestamp, title, body, author, category) => (dispat
     rsp => rsp.json(),
     err => dispatch(addPostFailure(err))
   )
-  .then(postID => dispatch(addPostSuccess(postID)))
+  .then(post => dispatch(addPostSuccess(post)))
 })
 
 export const EDIT_POST_REQUEST = "EDIT_POST_REQUEST"
 export const editPostRequest = () => ({type: EDIT_POST_REQUEST})
 
 export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS"
-export const editPostSuccess = () => ({type: EDIT_POST_SUCCESS})
+export const editPostSuccess = (post) => ({type: EDIT_POST_SUCCESS, post})
 
 export const EDIT_POST_FAILURE = "EDIT_POST_FAILURE"
 export const editPostFailure = () => ({type: EDIT_POST_FAILURE})
@@ -141,4 +141,5 @@ export const editPost = (id, title, body) => (dispatch => {
     rsp => rsp.json(),
     err => dispatch(editPostFailure(err))
   )
+  .then(post => dispatch(editPostSuccess(post)))
 })

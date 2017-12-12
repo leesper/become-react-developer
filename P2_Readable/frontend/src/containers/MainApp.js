@@ -2,7 +2,14 @@ import React from "react"
 import { connect } from "react-redux"
 import { MainList } from "../components"
 import { message } from "antd"
-import { fetchCategories, fetchPosts, categoryChange, addPost, editPost } from "../actions"
+import {
+  fetchCategories,
+  fetchPosts,
+  categoryChange,
+  addPost,
+  editPost,
+  fetchPostDetail
+} from "../actions"
 
 const listData = [];
 for (let i = 0; i < 5; i++) {
@@ -23,18 +30,22 @@ class MainApp extends React.Component {
   render() {
     return (
       <MainList
+        isCategoriesFetching={this.props.isCategoriesFetching}
         categories={this.props.categories}
+        isPostFetching={this.props.isPostFetching}
+        isPostUpdating={this.props.isPostUpdating}
+        updatedPost={this.props.updatedPost}
         posts={this.props.posts}
         onView={this.props.onView}
         onEdit={this.props.onEdit}
         onDelete={this.props.onDelete}
         onLike={this.props.onLike}
         onDislike={this.props.onDislike}
-        onMenuItemClick={this.props.onMenuItemClick}
         loadPosts={this.props.loadPosts}
         changeCategory={this.props.changeCategory}
         addPost={this.props.addPost}
         editPost={this.props.editPost}
+        loadPostDetail={this.props.loadPostDetail}
       />
     )
   }
@@ -42,10 +53,12 @@ class MainApp extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    category: state.category,
-    categories: state.categories,
     isCategoriesFetching: state.isCategoriesFetching,
+    categories: state.categories,
+    category: state.category,
     isPostFetching: state.isPostFetching,
+    isPostUpdating: state.isPostUpdating,
+    updatedPost: state.updatedPost,
     posts: state.posts
   }
 }
@@ -57,7 +70,6 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     onDelete: () => { message.info("delete") },
     onLike: () => { message.info("like") },
     onDislike: () => { message.info("dislike") },
-    onMenuItemClick: ({ key }) => { message.info(key) },
     loadCategories: () => { dispatch(fetchCategories()) },
     loadPosts: (category) => { dispatch(fetchPosts(category))},
     changeCategory: (category) => { dispatch(categoryChange(category)) },
@@ -67,6 +79,9 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     editPost: (id, title, body) => {
       dispatch(editPost(id, title, body))
     },
+    loadPostDetail: (postID) => {
+      dispatch(fetchPostDetail(postID))
+    }
   }
 )
 

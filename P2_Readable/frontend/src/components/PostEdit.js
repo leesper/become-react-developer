@@ -68,7 +68,9 @@ class PostEditor extends React.Component {
                 )}
             </FormItem>
 
-            <FormItem
+            {
+              !this.props.postID &&
+              <FormItem
               validateStatus={authorError ? 'error' : ''}
               help={authorError || ''}
               >
@@ -77,7 +79,9 @@ class PostEditor extends React.Component {
                 })(
                   <Input placeholder="author" />
                 )}
-            </FormItem>
+              </FormItem>
+            }
+
             <FormItem
               validateStatus={contentError ? 'error' : ''}
               help={contentError || ''}

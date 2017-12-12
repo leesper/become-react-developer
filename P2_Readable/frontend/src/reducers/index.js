@@ -3,7 +3,9 @@ import {
   CATEGORIES_REQUEST, CATEGORIES_SUCCESS, CATEGORIES_FAILURE, CATEGORY_CHANGE,
   POSTS_REQUEST, POSTS_SUCCESS, POSTS_FAILURE,
   COMMENTS_SUCCESS, COMMENTS_FAILURE,
-  POST_DETAIL_REQUEST, POST_DETAIL_SUCCESS, POST_DETAIL_FAILURE
+  POST_DETAIL_REQUEST, POST_DETAIL_SUCCESS, POST_DETAIL_FAILURE,
+  ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
+  EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE
 } from "../actions"
 
 const categoryRoot = {
@@ -20,8 +22,9 @@ const categoryRoot = {
 //     path: "/"
 //   },
 //   isPostFetching: false,
-//   posts: {},
-//   comments: {}
+//   isPostUpdating: false,
+//   posts: [],
+//   comments: []
 // }
 
 const isCategoriesFetching = (state = false, action) => {
@@ -59,19 +62,21 @@ const category = (state = categoryRoot, action) => {
   }
 };
 
-
-
-
-
 const isPostFetching = (state = false, action) => {
   switch (action.type) {
     case POSTS_REQUEST:
     case POST_DETAIL_REQUEST:
+    case ADD_POST_REQUEST:
+    case EDIT_POST_REQUEST:
       return true
     case POSTS_SUCCESS:
     case POSTS_FAILURE:
     case POST_DETAIL_SUCCESS:
     case POST_DETAIL_FAILURE:
+    case ADD_POST_SUCCESS:
+    case ADD_POST_FAILURE:
+    case EDIT_POST_SUCCESS:
+    case EDIT_POST_FAILURE:
       return false
     default:
       return state
@@ -82,18 +87,28 @@ const posts = (state = [], action) => {
   switch (action.type) {
     case POSTS_SUCCESS:
       return action.posts
-    case POSTS_FAILURE:
-    case POST_DETAIL_FAILURE:
-      return { err: action.err }
     case POST_DETAIL_SUCCESS:
+    case ADD_POST_SUCCESS:
+    case EDIT_POST_SUCCESS:
       return [
         ...state.filter(p => p.id !== action.post.id),
         action.post
       ]
+    case POST_DETAIL_FAILURE:
+    case ADD_POST_FAILURE:
+    case EDIT_POST_FAILURE:
+    case POSTS_FAILURE:
     default:
       return state
   }
 }
+
+
+
+
+
+
+
 
 const comments = (state = [], action) => {
   switch (action.type) {
@@ -107,10 +122,11 @@ const comments = (state = [], action) => {
 }
 
 const rootReducer = combineReducers({
-  isPostFetching,
-  category,
-  posts,
+  isCategoriesFetching,
   categories,
+  category,
+  isPostFetching,
+  posts,
   comments
 })
 
