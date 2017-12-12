@@ -171,6 +171,83 @@ export const fetchComments = (postID) => ((dispatch, getState) => {
   .then(comments => dispatch(commentsSuccess(comments)))
 })
 
+export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST"
+export const addCommentRequest = () => ({type: ADD_COMMENT_REQUEST})
+
+export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS"
+export const addCommentSuccess = (comment) => ({type: ADD_COMMENT_SUCCESS, comment})
+
+export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE"
+export const addCommentFailure = (err) => ({type: ADD_COMMENT_FAILURE, err})
+
+export const addComment = (id, timestamp, body, author, parentId) => (dispatch => {
+  dispatch(addCommentRequest())
+  ReadableAPI.addComment(id, timestamp, body, author, parentId)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(addCommentFailure(err))
+  )
+  .then(comment => dispatch(addCommentSuccess(comment)))
+})
+
+export const EDIT_COMMENT_REQUEST = "EDIT_COMMENT_REQUEST"
+export const editCommentRequest = () => ({type: EDIT_COMMENT_REQUEST})
+
+export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS"
+export const editCommentSuccess = (comment) => ({type: EDIT_COMMENT_SUCCESS, comment})
+
+export const EDIT_COMMENT_FAILURE = "EDIT_COMMENT_FAILURE"
+export const editCommentFailure = (err) => ({type: EDIT_COMMENT_FAILURE, err})
+
+export const editComment = (id, timestamp, body) => (dispatch => {
+  dispatch(editCommentRequest())
+  ReadableAPI.editComment(id, timestamp, body)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(editCommentFailure(err))
+  )
+  .then(comment => dispatch(editCommentSuccess(comment)))
+})
+
+export const VOTE_COMMENT_REQUEST = "VOTE_COMMENT_REQUEST"
+export const voteCommentRequest = () => ({type: VOTE_COMMENT_REQUEST})
+
+export const VOTE_COMMENT_SUCCESS = "VOTE_COMMENT_SUCCESS"
+export const voteCommentSuccess = (comment) => ({type: VOTE_COMMENT_SUCCESS, comment})
+
+export const VOTE_COMMENT_FAILURE = "VOTE_COMMENT_FAILURE"
+export const voteCommentFailure = (err) => ({type: VOTE_COMMENT_FAILURE, err})
+
+export const voteComment = (id, option) => (dispatch => {
+  dispatch(voteCommentRequest())
+  ReadableAPI.voteComment(id, option)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(voteCommentFailure(err))
+  )
+  .then(comment => dispatch(voteCommentSuccess(comment)))
+})
+
+export const DELETE_COMMENT_REQUEST = "DELETE_COMMENT_REQUEST"
+export const deleteCommentRequest = () => ({type: DELETE_COMMENT_REQUEST})
+
+export const DELETE_COMMENT_SUCCESS = "DELETE_COMMENT_SUCCESS"
+export const deleteCommentSuccess = (comment) => ({type: DELETE_COMMENT_SUCCESS, comment})
+
+export const DELETE_COMMENT_FAILURE = "DELETE_COMMENT_FAILURE"
+export const deleteCommentFailure = (err) => ({type: DELETE_COMMENT_FAILURE, err})
+
+export const deleteComment = (id) => (dispatch => {
+  dispatch(deleteCommentRequest())
+  ReadableAPI.deleteComment(id)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(deleteCommentFailure(err))
+  )
+  .then(comment => dispatch(deleteCommentSuccess(comment)))
+})
+
+// actions for sorting
 export const SORT_BY_VOTE = "SORT_BY_VOTE"
 export const sortByVote = () => ({type: SORT_BY_VOTE})
 
