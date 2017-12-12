@@ -44,6 +44,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     category: state.category,
     categories: state.categories,
+    isCategoriesFetching: state.isCategoriesFetching,
     isPostFetching: state.isPostFetching,
     posts: state.posts
   }

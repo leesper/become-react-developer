@@ -10,6 +10,9 @@ export const categoriesSuccess = (json) => ({type: CATEGORIES_SUCCESS, categorie
 export const CATEGORIES_FAILURE = "CATEGORY_FAILURE"
 export const categoriesFailure = (err) => ({type: CATEGORIES_FAILURE, err})
 
+export const CATEGORY_CHANGE = "CATEGORY_CHANGE"
+export const categoryChange = (category) => ({type: CATEGORY_CHANGE, category})
+
 export const fetchCategories = () => (dispatch => {
   dispatch(categoriesRequest())
   ReadableAPI.getAllCategories()
@@ -20,8 +23,16 @@ export const fetchCategories = () => (dispatch => {
   .then(json => dispatch(categoriesSuccess(json)))
 })
 
-export const CATEGORY_CHANGE = "CATEGORY_CHANGE"
-export const categoryChange = (category) => ({type: CATEGORY_CHANGE, category})
+
+
+
+
+
+
+
+
+
+
 
 // actions about posts
 export const POSTS_REQUEST = "POSTS_REQUEST"

@@ -1,7 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { Spin } from "antd"
 
 const Nav = (props) => (
+  props.isCategoriesFetching ? <Spin /> :
   props.categories.map((category) => (
     <Link
       key={category.path}
@@ -15,7 +17,7 @@ const Nav = (props) => (
         }
       }
       >{category.name}</Link>
-    ))
+  ))
 )
 
 export default Nav

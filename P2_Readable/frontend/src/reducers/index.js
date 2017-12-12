@@ -6,22 +6,49 @@ import {
   POST_DETAIL_REQUEST, POST_DETAIL_SUCCESS, POST_DETAIL_FAILURE
 } from "../actions"
 
-// design of state object:
-// {
-//   isPostFetching: false,
-//   category: {
-//     name: "root",
-//     path: "/"
-//   }
-//   posts: {},
-//   comments: {},
-//   categories: []
-// }
-
 const categoryRoot = {
   name: "全部",
   path: "/"
 };
+
+// design of state object:
+// {
+//   isCategoriesFetching: false,
+//   categories: [],
+//   category: {
+//     name: "root",
+//     path: "/"
+//   },
+//   isPostFetching: false,
+//   posts: {},
+//   comments: {}
+// }
+
+const isCategoriesFetching = (state = false, action) => {
+  switch (action.type) {
+    case CATEGORIES_REQUEST:
+      return true
+    case CATEGORIES_SUCCESS:
+      return false
+    case CATEGORIES_FAILURE:
+      return false
+    default:
+      return state
+  }
+}
+
+const categories = (state = [categoryRoot], action) => {
+  switch (action.type) {
+    case CATEGORIES_SUCCESS:
+      return [
+        categoryRoot,
+        ...action.categories
+      ]
+    case CATEGORIES_FAILURE:
+    default:
+      return state;
+  }
+}
 
 const category = (state = categoryRoot, action) => {
   switch (action.type) {
@@ -32,24 +59,9 @@ const category = (state = categoryRoot, action) => {
   }
 };
 
-const categories = (state = [categoryRoot], action) => {
-  switch (action.type) {
-    case CATEGORIES_SUCCESS:
-      return [
-        categoryRoot,
-        ...action.categories
-      ]
-    case CATEGORIES_FAILURE:
-      return [
-        {
-          name: "error",
-          path: action.err
-        }
-      ];
-    default:
-      return state;
-  }
-}
+
+
+
 
 const isPostFetching = (state = false, action) => {
   switch (action.type) {

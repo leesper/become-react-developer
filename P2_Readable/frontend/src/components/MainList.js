@@ -76,6 +76,7 @@ class MainList extends React.Component {
               categories={this.props.categories}
               changeCategory={this.props.changeCategory}
               loadPosts={this.props.loadPosts}
+              isCategoriesFetching={this.props.isCategoriesFetching}
             />
           </Col>
         </Row>
