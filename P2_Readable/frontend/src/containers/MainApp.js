@@ -10,7 +10,9 @@ import {
   editPost,
   fetchPostDetail,
   deletePost,
-  votePost
+  votePost,
+  sortByVote,
+  sortByDate
 } from "../actions"
 
 const listData = [];
@@ -47,6 +49,8 @@ class MainApp extends React.Component {
         loadPostDetail={this.props.loadPostDetail}
         deletePost={this.props.deletePost}
         votePost={this.props.votePost}
+        sortByVote={this.props.sortByVote}
+        sortByDate={this.props.sortByDate}
       />
     )
   }
@@ -85,6 +89,12 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     },
     votePost: (id, option) => {
       dispatch(votePost(id, option))
+    },
+    sortByVote: () => {
+      dispatch(sortByVote())
+    },
+    sortByDate: () => {
+      dispatch(sortByDate())
     }
   }
 )

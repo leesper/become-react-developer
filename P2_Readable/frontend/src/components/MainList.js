@@ -38,6 +38,10 @@ class MainList extends React.Component {
     message.info(key)
     if (key === "new") {
       this.onEdit()
+    } else if (key === "byVote") {
+      this.props.sortByVote()
+    } else if (key === "byTTS") {
+      this.props.sortByDate()
     }
   }
 

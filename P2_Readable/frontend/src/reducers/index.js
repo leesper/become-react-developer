@@ -7,7 +7,8 @@ import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE,
   DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE,
-  VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE
+  VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
+  SORT_BY_VOTE, SORT_BY_DATE
 } from "../actions"
 
 const categoryRoot = {
@@ -108,6 +109,12 @@ const posts = (state = [], action) => {
       return state.map(p => (
         p.id === action.post.id ? action.post : p
       ))
+    case SORT_BY_VOTE:
+      // sort by vote
+      return [...state].sort((postA, postB) => postB.voteScore - postA.voteScore)
+    case SORT_BY_DATE:
+      // sort by date
+      return [...state].sort((postA, postB) => postB.timestamp - postA.timestamp)
     case POST_DETAIL_FAILURE:
     case ADD_POST_FAILURE:
     case EDIT_POST_FAILURE:

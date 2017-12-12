@@ -170,3 +170,9 @@ export const fetchComments = (postID) => ((dispatch, getState) => {
   )
   .then(comments => dispatch(commentsSuccess(comments)))
 })
+
+export const SORT_BY_VOTE = "SORT_BY_VOTE"
+export const sortByVote = () => ({type: SORT_BY_VOTE})
+
+export const SORT_BY_DATE = "SORT_BY_DATE"
+export const sortByDate = () => ({type: SORT_BY_DATE})
