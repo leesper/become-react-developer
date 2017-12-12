@@ -1,7 +1,7 @@
 import React from "react"
 // import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
-import { Row, Col, Menu, List, Button, message, Spin } from "antd"
+import { Row, Col, Menu, List, Button, Spin } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
@@ -35,7 +35,6 @@ class MainList extends React.Component {
   }
 
   onMenuItemClick = ({ key }) => {
-    message.info(key)
     if (key === "new") {
       this.onEdit()
     } else if (key === "byVote") {

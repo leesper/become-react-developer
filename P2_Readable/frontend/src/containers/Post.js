@@ -6,13 +6,14 @@ import {
   fetchPosts,
   categoryChange,
   fetchCategories,
-  fetchComments
+  fetchComments,
+  votePost
 } from "../actions"
 import { message } from "antd"
 
 class Poster extends React.Component {
   componentDidMount() {
-    this.props.loadPostDetail()
+    this.props.loadPostDetail(this.props.match.params.post_id)
     this.props.loadCategories()
     this.props.loadComments()
   }
@@ -23,12 +24,11 @@ class Poster extends React.Component {
         categories={this.props.categories}
         comments={this.props.comments}
         post={this.props.post}
-        onLike={this.props.onLike}
-        onDislike={this.props.onDislike}
         onEdit={this.props.onEdit}
         onDelete={this.props.onDelete}
         changeCategory={this.props.changeCategory}
         loadPosts={this.props.loadPosts}
+        votePost={this.props.votePost}
       />
     )
   }
@@ -49,13 +49,14 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadPostDetail: () => { dispatch(fetchPostDetail(ownProps.match.params.post_id)) },
-  onLike: () => { message.info("like") },
-  onDislike: () => { message.info("dislike") },
+  loadPostDetail: (postID) => { dispatch(fetchPostDetail(postID)) },
   loadPosts: (category) => { dispatch(fetchPosts(category))},
   loadCategories: () => { dispatch(fetchCategories()) },
   loadComments: () => { dispatch(fetchComments(ownProps.match.params.post_id)) },
   changeCategory: (category) => { dispatch(categoryChange(category)) },
+  votePost: (id, option) => {
+    dispatch(votePost(id, option))
+  },
   onEdit: () => { message.info("edit") },
   onDelete: () => { message.info("delete") }
 })

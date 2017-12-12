@@ -69,31 +69,31 @@ const addComment = (id, timestamp, body, author, parentId) =>
   fetch(`http://${url}/comments`, {
     method: "POST",
     headers,
-  }).then(rsp => rsp.json());
+  })
 
 // get the details for a single comment
-const getCommentDetail = (id) => fetch(`http://${url}/comments/${id}`, { headers }).then(rsp => rsp.json());
+const getCommentDetail = (id) => fetch(`http://${url}/comments/${id}`, { headers })
 
 // voting on a comment
 const voteComment = (id, option) =>
   fetch(`http://${url}/comments/${id}`, {
     method: "POST",
     headers
-  }).then(rsp => rsp.json());
+  })
 
 // edit the details of an existing comment
 const editComment = (id, timestamp, body) =>
   fetch(`http://${url}/comments/${id}`, {
     method: "PUT",
     headers
-  }).then(rsp => rsp.json());
+  })
 
 // sets a comment's deleted flag to true
 const deleteComment = (id) =>
   fetch(`http://${url}/comments/${id}`, {
     method: "DELETE",
     headers
-  }).then(rsp => rsp.json());
+  })
 
 export {
   getAllCategories,
