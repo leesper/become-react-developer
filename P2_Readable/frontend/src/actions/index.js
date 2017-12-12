@@ -94,3 +94,22 @@ export const fetchPostDetail = (postID) => ((dispatch, getState) => {
     .then(post => dispatch(postDetailSuccess(post)))
   }
 })
+
+export const ADD_POST_REQUEST = "ADD_POST_REQUEST"
+export const addPostRequest = () => ({type: ADD_POST_REQUEST})
+
+export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS"
+export const addPostSuccess = (postID) => ({type: ADD_POST_SUCCESS, postID})
+
+export const ADD_POST_FAILURE = "ADD_POST_FAILURE"
+export const addPostFailure = (err) => ({type: ADD_POST_FAILURE, err})
+
+export const addPost = (id, timestamp, title, body, author, category) => (dispatch => {
+  dispatch(addPostRequest())
+  ReadableAPI.addPost(id, timestamp, title, body, author, category)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(addPostFailure(err))
+  )
+  .then(postID => dispatch(addPostSuccess(postID)))
+})

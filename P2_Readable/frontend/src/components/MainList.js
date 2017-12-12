@@ -14,20 +14,24 @@ class MainList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: "Title",
-      author: "Author",
-      content: "content",
+      postID: "",
+      title: "",
+      author: "",
+      content: "",
+      category: "",
       loading: false,
       visible: false
     }
   }
 
-  onEdit = (title, author, content) => {
+  onEdit = (id, title, author, content, category) => {
     this.setState({
-        title: title,
-        author: author,
-        content: content,
-        visible: true
+      postID: id,
+      title: title,
+      author: author,
+      content: content,
+      category: category,
+      visible: true
     })
   }
 
@@ -103,7 +107,7 @@ class MainList extends React.Component {
                     <Button
                       icon="edit"
                       type="primary"
-                      onClick={() => this.onEdit(item.title, item.author, item.body)}
+                      onClick={() => this.onEdit(item.id, item.title, item.author, item.body, item.category)}
                       >
                         Edit
                     </Button>,
@@ -122,9 +126,11 @@ class MainList extends React.Component {
             <PostEdit
               visible={this.state.visible}
               loading={this.state.loading}
+              postID={this.state.postID}
               title={this.state.title}
               author={this.state.author}
               content={this.state.content}
+              categories={this.props.categories}
               handleOK={this.handleOK}
               handleCancel={this.handleCancel}
             />

@@ -1,10 +1,11 @@
 import React from "react"
-import { Modal, Form, Input, Button } from "antd"
+import { Modal, Form, Input, Button, Select } from "antd"
 import { hasErrors } from "../utils"
 
 
 const FormItem = Form.Item
 const { TextArea } = Input
+const { Option } = Select
 class PostEditor extends React.Component {
   componentDidMount() {
     // To disabled submit button at the beginning.
@@ -15,7 +16,7 @@ class PostEditor extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values, this.props.postID);
       }
     });
   }
@@ -47,6 +48,21 @@ class PostEditor extends React.Component {
                   <Input placeholder="title" />
                 )}
             </FormItem>
+
+            <FormItem>
+                {getFieldDecorator('category', {
+                  initialValue: "react"
+                })(
+                  <Select>
+                    {
+                      this.props.categories
+                      .filter(category => category.path !== "/")
+                      .map(category => <Option key={category.path} value={category.path}>{category.name}</Option>)
+                    }
+                  </Select>
+                )}
+            </FormItem>
+
             <FormItem
               validateStatus={authorError ? 'error' : ''}
               help={authorError || ''}
@@ -94,7 +110,7 @@ const PostEdit = Form.create({
     return {
       title: Form.createFormField({value: props.title}),
       author: Form.createFormField({value: props.author}),
-      content: Form.createFormField({value: props.content})
+      content: Form.createFormField({value: props.content}),
     }
   }
 })(PostEditor)
