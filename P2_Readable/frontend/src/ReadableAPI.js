@@ -45,7 +45,7 @@ const votePost = (id, option) =>
     method: "POST",
     headers,
     body: JSON.stringify({option})
-  }).then(rsp => rsp.json());
+  })
 
 // edit the details of an existing post
 const editPost = (id, title, body) =>

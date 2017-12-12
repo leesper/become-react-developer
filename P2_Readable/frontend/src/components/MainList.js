@@ -106,7 +106,11 @@ class MainList extends React.Component {
                   <List.Item
                     key={item.title}
                     actions={[
-                      <Voter text={item.voteScore} onLike={this.props.onLike} onDislike={this.props.onDislike} />,
+                      <Voter
+                        text={item.voteScore}
+                        onLike={() => this.props.votePost(item.id, "upVote")}
+                        onDislike={() => this.props.votePost(item.id, "downVote")}
+                      />,
                       <IconText type="user" text={item.author} />,
                       <IconText type="message" text={item.commentCount} />,
                       <IconText type="folder" text={item.category} />,

@@ -101,7 +101,7 @@ export const EDIT_POST_SUCCESS = "EDIT_POST_SUCCESS"
 export const editPostSuccess = (post) => ({type: EDIT_POST_SUCCESS, post})
 
 export const EDIT_POST_FAILURE = "EDIT_POST_FAILURE"
-export const editPostFailure = () => ({type: EDIT_POST_FAILURE})
+export const editPostFailure = (err) => ({type: EDIT_POST_FAILURE, err})
 
 export const editPost = (id, title, body) => (dispatch => {
   dispatch(editPostRequest())
@@ -120,7 +120,7 @@ export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS"
 export const deletePostSuccess = (post) => ({type: DELETE_POST_SUCCESS, post})
 
 export const DELETE_POST_FAILURE = "DELETE_POST_FAILURE"
-export const deletePostFailure = () => ({type: DELETE_POST_FAILURE})
+export const deletePostFailure = (err) => ({type: DELETE_POST_FAILURE, err})
 
 export const deletePost = (id) => (dispatch => {
   dispatch(deletePostRequest())
@@ -130,6 +130,25 @@ export const deletePost = (id) => (dispatch => {
     err => dispatch(deletePostFailure(err))
   )
   .then(post => dispatch(deletePostSuccess(post)))
+})
+
+export const VOTE_POST_REQUEST = "VOTE_POST_REQUEST"
+export const votePostRequest = () => ({type: VOTE_POST_REQUEST})
+
+export const VOTE_POST_SUCCESS = "VOTE_POST_SUCCESS"
+export const votePostSuccess = (post) => ({type: VOTE_POST_SUCCESS, post})
+
+export const VOTE_POST_FAILURE = "VOTE_POST_FAILURE"
+export const votePostFailure = (err) => ({type: VOTE_POST_FAILURE, err})
+
+export const votePost = (id, option) => (dispatch => {
+  dispatch(votePostRequest())
+  ReadableAPI.votePost(id, option)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(votePostFailure(err))
+  )
+  .then(post => dispatch(votePostSuccess(post)))
 })
 
 // actions about comments

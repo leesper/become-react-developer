@@ -6,7 +6,8 @@ import {
   POST_DETAIL_REQUEST, POST_DETAIL_SUCCESS, POST_DETAIL_FAILURE,
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE,
-  DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE
+  DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE,
+  VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE
 } from "../actions"
 
 const categoryRoot = {
@@ -70,6 +71,7 @@ const isPostFetching = (state = false, action) => {
     case ADD_POST_REQUEST:
     case EDIT_POST_REQUEST:
     case DELETE_POST_REQUEST:
+    case VOTE_POST_REQUEST:
       return true
     case POSTS_SUCCESS:
     case POSTS_FAILURE:
@@ -81,6 +83,8 @@ const isPostFetching = (state = false, action) => {
     case EDIT_POST_FAILURE:
     case DELETE_POST_SUCCESS:
     case DELETE_POST_FAILURE:
+    case VOTE_POST_SUCCESS:
+    case VOTE_POST_FAILURE:
       return false
     default:
       return state
@@ -100,9 +104,14 @@ const posts = (state = [], action) => {
         ...state.filter(p => p.id !== action.post.id),
         action.post
       ]
+    case VOTE_POST_SUCCESS:
+      return state.map(p => (
+        p.id === action.post.id ? action.post : p
+      ))
     case POST_DETAIL_FAILURE:
     case ADD_POST_FAILURE:
     case EDIT_POST_FAILURE:
+    case VOTE_POST_FAILURE:
     case POSTS_FAILURE:
     default:
       return state
