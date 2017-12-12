@@ -8,7 +8,8 @@ import {
   categoryChange,
   addPost,
   editPost,
-  fetchPostDetail
+  fetchPostDetail,
+  deletePost
 } from "../actions"
 
 const listData = [];
@@ -38,7 +39,6 @@ class MainApp extends React.Component {
         posts={this.props.posts}
         onView={this.props.onView}
         onEdit={this.props.onEdit}
-        onDelete={this.props.onDelete}
         onLike={this.props.onLike}
         onDislike={this.props.onDislike}
         loadPosts={this.props.loadPosts}
@@ -46,6 +46,7 @@ class MainApp extends React.Component {
         addPost={this.props.addPost}
         editPost={this.props.editPost}
         loadPostDetail={this.props.loadPostDetail}
+        deletePost={this.props.deletePost}
       />
     )
   }
@@ -67,7 +68,6 @@ const mapDispatchToProps = (dispatch, ownProps) => (
   {
     onView: () => { message.info("view") },
     onEdit: () => { message.info("edit") },
-    onDelete: () => { message.info("delete") },
     onLike: () => { message.info("like") },
     onDislike: () => { message.info("dislike") },
     loadCategories: () => { dispatch(fetchCategories()) },
@@ -81,6 +81,9 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     },
     loadPostDetail: (postID) => {
       dispatch(fetchPostDetail(postID))
+    },
+    deletePost: (id) => {
+      dispatch(deletePost(id))
     }
   }
 )

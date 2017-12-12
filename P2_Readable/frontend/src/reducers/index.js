@@ -5,7 +5,8 @@ import {
   COMMENTS_SUCCESS, COMMENTS_FAILURE,
   POST_DETAIL_REQUEST, POST_DETAIL_SUCCESS, POST_DETAIL_FAILURE,
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
-  EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE
+  EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE,
+  DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE
 } from "../actions"
 
 const categoryRoot = {
@@ -68,6 +69,7 @@ const isPostFetching = (state = false, action) => {
     case POST_DETAIL_REQUEST:
     case ADD_POST_REQUEST:
     case EDIT_POST_REQUEST:
+    case DELETE_POST_REQUEST:
       return true
     case POSTS_SUCCESS:
     case POSTS_FAILURE:
@@ -77,6 +79,8 @@ const isPostFetching = (state = false, action) => {
     case ADD_POST_FAILURE:
     case EDIT_POST_SUCCESS:
     case EDIT_POST_FAILURE:
+    case DELETE_POST_SUCCESS:
+    case DELETE_POST_FAILURE:
       return false
     default:
       return state
@@ -85,6 +89,8 @@ const isPostFetching = (state = false, action) => {
 
 const posts = (state = [], action) => {
   switch (action.type) {
+    case DELETE_POST_SUCCESS:
+      return state.filter(p => p.id !== action.post.id)
     case POSTS_SUCCESS:
       return action.posts
     case POST_DETAIL_SUCCESS:

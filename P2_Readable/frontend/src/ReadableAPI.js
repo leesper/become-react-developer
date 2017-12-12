@@ -59,7 +59,7 @@ const editPost = (id, title, body) =>
 const deletePost = (id) => fetch(`http://${url}/posts/${id}`, {
   method: "DELETE",
   headers
-}).then(rsp => rsp.json());
+})
 
 // get all the comments for a single post
 const getPostComments = (id) => fetch(`http://${url}/posts/${id}/comments`, { headers })

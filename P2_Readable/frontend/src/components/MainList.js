@@ -55,6 +55,10 @@ class MainList extends React.Component {
     })
   }
 
+  handleDeletePost = (id) => {
+    this.props.deletePost(id)
+  }
+
   handleCancel = () => {
     this.setState({
       visible: false
@@ -114,7 +118,7 @@ class MainList extends React.Component {
                         >
                           Edit
                         </Button>,
-                        <Button icon="delete" type="danger" onClick={this.props.onDelete}>Delete</Button>]}
+                        <Button icon="delete" type="danger" onClick={() => this.handleDeletePost(item.id)}>Delete</Button>]}
                   >
                     <List.Item.Meta
                       title={<Link to={`${item.category}/${item.id}`}>{item.title}</Link>}

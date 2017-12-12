@@ -23,17 +23,6 @@ export const fetchCategories = () => (dispatch => {
   .then(json => dispatch(categoriesSuccess(json)))
 })
 
-
-
-
-
-
-
-
-
-
-
-
 // actions about posts
 export const POSTS_REQUEST = "POSTS_REQUEST"
 export const postsRequest = () => ({type: POSTS_REQUEST})
@@ -60,26 +49,6 @@ export const fetchPosts = (category) => (dispatch => {
   )
   .then(posts => dispatch(postsSuccess(posts)))
 
-})
-
-// actions about comments
-export const COMMENTS_REQUEST = "COMMENTS_REQUEST"
-export const commentsRequest = () => ({type: COMMENTS_REQUEST})
-
-export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS"
-export const commentsSuccess = (comments) => ({type: COMMENTS_SUCCESS, comments})
-
-export const COMMENTS_FAILURE = "COMMENTS_FAILURE"
-export const commentsFailure = (err) => ({type: COMMENTS_FAILURE, err})
-
-export const fetchComments = (postID) => ((dispatch, getState) => {
-  dispatch(commentsRequest())
-  ReadableAPI.getPostComments(postID)
-  .then(
-    rsp => rsp.json(),
-    err => dispatch(commentsFailure(err))
-  )
-  .then(comments => dispatch(commentsSuccess(comments)))
 })
 
 export const POST_DETAIL_REQUEST = "POST_DETAIL_REQUEST"
@@ -142,4 +111,43 @@ export const editPost = (id, title, body) => (dispatch => {
     err => dispatch(editPostFailure(err))
   )
   .then(post => dispatch(editPostSuccess(post)))
+})
+
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST"
+export const deletePostRequest = () => ({type: DELETE_POST_REQUEST})
+
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS"
+export const deletePostSuccess = (post) => ({type: DELETE_POST_SUCCESS, post})
+
+export const DELETE_POST_FAILURE = "DELETE_POST_FAILURE"
+export const deletePostFailure = () => ({type: DELETE_POST_FAILURE})
+
+export const deletePost = (id) => (dispatch => {
+  dispatch(deletePostRequest())
+  ReadableAPI.deletePost(id)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(deletePostFailure(err))
+  )
+  .then(post => dispatch(deletePostSuccess(post)))
+})
+
+// actions about comments
+export const COMMENTS_REQUEST = "COMMENTS_REQUEST"
+export const commentsRequest = () => ({type: COMMENTS_REQUEST})
+
+export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS"
+export const commentsSuccess = (comments) => ({type: COMMENTS_SUCCESS, comments})
+
+export const COMMENTS_FAILURE = "COMMENTS_FAILURE"
+export const commentsFailure = (err) => ({type: COMMENTS_FAILURE, err})
+
+export const fetchComments = (postID) => ((dispatch, getState) => {
+  dispatch(commentsRequest())
+  ReadableAPI.getPostComments(postID)
+  .then(
+    rsp => rsp.json(),
+    err => dispatch(commentsFailure(err))
+  )
+  .then(comments => dispatch(commentsSuccess(comments)))
 })
