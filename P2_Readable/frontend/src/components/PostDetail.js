@@ -9,17 +9,13 @@ import PostEdit from "./PostEdit"
 import { guid } from "../utils"
 
 class PostDetail extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   onCommentEdit = (id, author, body) => {
-    this.commentToEdit({
+    this.props.commentToEdit({
       id,
       author,
       body
     })
-    this.commentEditable(true)
+    this.props.commentEditable(true)
   }
 
   onPostEdit = (id, title, author, category, body) => {

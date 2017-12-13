@@ -118,7 +118,6 @@ class PostEditor extends React.Component {
 
 const PostEdit = Form.create({
   mapPropsToFields(props) {
-    console.log("PROPS POST", props)
     return {
       title: Form.createFormField({value: props.post && props.post.title}),
       author: Form.createFormField({value: props.post && props.post.author}),

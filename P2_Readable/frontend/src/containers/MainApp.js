@@ -1,7 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
 import { MainList } from "../components"
-import { message } from "antd"
 import {
   fetchCategories,
   fetchPosts,
@@ -15,9 +14,7 @@ import {
   sortByDate,
   sortByCategory,
   postToEdit,
-  commentToEdit,
-  postEditable,
-  commentEditable
+  postEditable
 } from "../actions"
 
 const listData = [];

@@ -33,6 +33,9 @@ class Poster extends React.Component {
         categories={this.props.categories}
         post={this.props.post}
         comments={this.props.comments}
+        comment={this.props.comment}
+        isPostEditable={this.props.isPostEditable}
+        isCommentEditable={this.props.isCommentEditable}
         loadPostDetail={this.props.loadPostDetail}
         loadPosts={this.props.loadPosts}
         changeCategory={this.props.changeCategory}
