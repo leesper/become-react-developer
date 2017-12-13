@@ -8,7 +8,9 @@ import {
   EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE,
   DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE,
   VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
-  SORT_BY_VOTE, SORT_BY_DATE
+  SORT_BY_VOTE, SORT_BY_DATE,
+  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
+  EDIT_COMMENT_REQUEST, EDIT_COMMENT_SUCCESS, EDIT_COMMENT_FAILURE
 } from "../actions"
 
 const categoryRoot = {
@@ -125,19 +127,38 @@ const posts = (state = [], action) => {
   }
 }
 
-
-
-
-
-
-
-
 const comments = (state = [], action) => {
   switch (action.type) {
     case COMMENTS_SUCCESS:
       return action.comments
+    case ADD_COMMENT_SUCCESS:
+      console.log("COMMENT", action.comment)
+      return [
+        ...state,
+        action.comment
+      ]
+    case EDIT_COMMENT_SUCCESS:
+      return state.map(comment => {
+        return comment.id === action.comment.id ? action.comment : comment
+      })
     case COMMENTS_FAILURE:
-      return { err: action.err }
+    case ADD_COMMENT_FAILURE:
+    case EDIT_COMMENT_FAILURE:
+    default:
+      return state
+  }
+}
+
+const isCommentFetching = (state = false, action) => {
+  switch (action.type) {
+    case ADD_COMMENT_REQUEST:
+    case EDIT_COMMENT_REQUEST:
+      return true
+    case ADD_COMMENT_SUCCESS:
+    case ADD_COMMENT_FAILURE:
+    case EDIT_COMMENT_SUCCESS:
+    case EDIT_COMMENT_FAILURE:
+      return false
     default:
       return state
   }
@@ -149,6 +170,7 @@ const rootReducer = combineReducers({
   category,
   isPostFetching,
   posts,
+  isCommentFetching,
   comments
 })
 

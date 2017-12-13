@@ -69,6 +69,7 @@ const addComment = (id, timestamp, body, author, parentId) =>
   fetch(`http://${url}/comments`, {
     method: "POST",
     headers,
+    body: JSON.stringify({id, timestamp, body, author, parentId})
   })
 
 // get the details for a single comment
@@ -78,14 +79,16 @@ const getCommentDetail = (id) => fetch(`http://${url}/comments/${id}`, { headers
 const voteComment = (id, option) =>
   fetch(`http://${url}/comments/${id}`, {
     method: "POST",
-    headers
+    headers,
+    body: JSON.stringify({option})
   })
 
 // edit the details of an existing comment
 const editComment = (id, timestamp, body) =>
   fetch(`http://${url}/comments/${id}`, {
     method: "PUT",
-    headers
+    headers,
+    body: JSON.stringify({timestamp, body})
   })
 
 // sets a comment's deleted flag to true

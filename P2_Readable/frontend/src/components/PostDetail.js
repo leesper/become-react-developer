@@ -6,11 +6,13 @@ import { formatDate } from "../utils"
 import Nav from "./Nav"
 import CommentEdit from "./CommentEdit"
 import PostEdit from "./PostEdit"
+import { guid } from "../utils"
 
 class PostDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      commentID: "",
       commentAuthor: "",
       comment: "",
       commentVisible: false,
@@ -21,8 +23,9 @@ class PostDetail extends React.Component {
     }
   }
 
-  onCommentEdit = (author, comment) => {
+  onCommentEdit = (id, author, comment) => {
     this.setState({
+      commentID: id,
       commentAuthor: author,
       comment: comment,
       commentVisible: true
@@ -45,13 +48,27 @@ class PostDetail extends React.Component {
     })
   }
 
-  handlePostCancel = () => {
+  handleCancelPost = () => {
     this.setState({
       postVisible: false
     })
   }
 
-  handleCommentCancel = () => {
+  handleCancelComment = () => {
+    this.setState({
+      commentVisible: false
+    })
+  }
+
+  handleAddComment = (author, comment) => {
+    this.props.addComment(guid(), Date.now(), comment, author, this.props.post.id)
+    this.setState({
+      commentVisible: false
+    })
+  }
+
+  handleEditComment = (id, comment) => {
+    this.props.editComment(id, Date.now(), comment)
     this.setState({
       commentVisible: false
     })
@@ -154,7 +171,7 @@ class PostDetail extends React.Component {
                 <Button
                   icon="edit"
                   type="primary"
-                  onClick={() => this.onCommentEdit(item.author, item.body)}
+                  onClick={() => this.onCommentEdit(item.id, item.author, item.body)}
                 />,
                 <Button
                   icon="delete"
@@ -177,14 +194,16 @@ class PostDetail extends React.Component {
           content={this.props.post && this.props.post.body}
           categories={this.props.categories}
           handleEditPost={this.handleEditPost}
-          handleCancel={this.handlePostCancel}
+          handleCancel={this.handleCancelPost}
         />
         <CommentEdit
           visible={this.state.commentVisible}
+          commentID={this.state.commentID}
           author={this.state.commentAuthor}
           comment={this.state.comment}
-          handleOK={this.handleOK}
-          handleCancel={this.handleCommentCancel}
+          handleAddComment={this.handleAddComment}
+          handleEditComment={this.handleEditComment}
+          handleCancel={this.handleCancelComment}
         />
       </Card>
     )

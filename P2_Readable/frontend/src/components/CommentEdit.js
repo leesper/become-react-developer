@@ -14,6 +14,11 @@ class CommentEditor extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        if (this.props.commentID) {
+          this.props.handleEditComment(this.props.commentID, values.comment)
+        } else {
+          this.props.handleAddComment(values.author, values.comment)
+        }
       }
     });
   }
@@ -34,16 +39,6 @@ class CommentEditor extends React.Component {
         >
           <Form layout="vertical" onSubmit={this.handleSubmit}>
             <FormItem
-              validateStatus={authorError ? 'error' : ''}
-              help={authorError || ''}
-              >
-                {getFieldDecorator('author', {
-                  rules: [{ required: true, message: 'Please input author!' }],
-                })(
-                  <Input placeholder="author" />
-                )}
-            </FormItem>
-            <FormItem
               validateStatus={commentError ? 'error' : ''}
               help={commentError || ''}
               >
@@ -53,6 +48,21 @@ class CommentEditor extends React.Component {
                   <Input placeholder="comment" />
                 )}
             </FormItem>
+
+            {
+              !this.props.commentID &&
+              <FormItem
+                validateStatus={authorError ? 'error' : ''}
+                help={authorError || ''}
+                >
+                  {getFieldDecorator('author', {
+                    rules: [{ required: true, message: 'Please input author!' }],
+                  })(
+                    <Input placeholder="author" />
+                  )}
+              </FormItem>
+            }
+
             <FormItem>
               <Button
                 type="primary"

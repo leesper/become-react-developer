@@ -9,7 +9,9 @@ import {
   fetchComments,
   votePost,
   editPost,
-  deletePost
+  deletePost,
+  addComment,
+  editComment
 } from "../actions"
 import { message } from "antd"
 
@@ -34,6 +36,8 @@ class Poster extends React.Component {
         editPost={this.props.editPost}
         deletePost={this.props.deletePost}
         history={this.props.history}
+        addComment={this.props.addComment}
+        editComment={this.props.editComment}
       />
     )
   }
@@ -67,6 +71,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   deletePost: (id) => {
     dispatch(deletePost(id))
+  },
+  addComment: (id, timestamp, body, author, parentId) => {
+    dispatch(addComment(id, timestamp, body, author, parentId))
+  },
+  editComment: (id, timestamp, body) => {
+    dispatch(editComment(id, timestamp, body))
   }
 })
 
