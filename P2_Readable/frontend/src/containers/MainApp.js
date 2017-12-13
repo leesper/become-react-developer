@@ -56,9 +56,7 @@ class MainApp extends React.Component {
         sortByDate={this.props.sortByDate}
         sortByCategory={this.props.sortByCategory}
         postToEdit={this.props.postToEdit}
-        commentToEdit={this.props.commentToEdit}
         postEditable={this.props.postEditable}
-        commentEditable={this.props.commentEditable}
       />
     )
   }
@@ -71,7 +69,6 @@ const mapStateToProps = (state, ownProps) => {
     posts: state.posts,
     post: state.postToEdit,
     isPostEditable: state.postEditable,
-    isCommentEditable: state.commentEditable
   }
 }
 
@@ -113,14 +110,8 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     postToEdit: (post) => {
       dispatch(postToEdit(post))
     },
-    commentToEdit: (comment) => {
-      dispatch(commentToEdit(comment))
-    },
     postEditable: (editable) => {
       dispatch(postEditable(editable))
-    },
-    commentEditable: (editable) => {
-      dispatch(commentEditable(editable))
     }
   }
 )

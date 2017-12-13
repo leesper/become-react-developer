@@ -54,7 +54,7 @@ class PostEditor extends React.Component {
             </FormItem>
 
             {
-              !this.props.post.id &&
+              this.props.post && !this.props.post.id &&
               <FormItem
               validateStatus={authorError ? 'error' : ''}
               help={authorError || ''}
@@ -68,7 +68,7 @@ class PostEditor extends React.Component {
             }
 
             {
-              !this.props.post.id &&
+              this.props.post && !this.props.post.id &&
               <FormItem>
                   {getFieldDecorator('category', {
                     initialValue: "react"
@@ -120,9 +120,9 @@ const PostEdit = Form.create({
   mapPropsToFields(props) {
     console.log("PROPS POST", props)
     return {
-      title: Form.createFormField({value: props.post.title}),
-      author: Form.createFormField({value: props.post.author}),
-      content: Form.createFormField({value: props.post.body}),
+      title: Form.createFormField({value: props.post && props.post.title}),
+      author: Form.createFormField({value: props.post && props.post.author}),
+      content: Form.createFormField({value: props.post && props.post.body}),
     }
   }
 })(PostEditor)

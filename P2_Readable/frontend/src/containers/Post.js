@@ -13,7 +13,11 @@ import {
   addComment,
   editComment,
   deleteComment,
-  voteComment
+  voteComment,
+  postToEdit,
+  commentToEdit,
+  postEditable,
+  commentEditable
 } from "../actions"
 
 class Poster extends React.Component {
@@ -27,22 +31,23 @@ class Poster extends React.Component {
     return (
       <PostDetail
         categories={this.props.categories}
-        comments={this.props.comments}
         post={this.props.post}
-        onEdit={this.props.onEdit}
-        onDelete={this.props.onDelete}
-        changeCategory={this.props.changeCategory}
-        loadPosts={this.props.loadPosts}
+        comments={this.props.comments}
         loadPostDetail={this.props.loadPostDetail}
+        loadPosts={this.props.loadPosts}
+        changeCategory={this.props.changeCategory}
         votePost={this.props.votePost}
         editPost={this.props.editPost}
         deletePost={this.props.deletePost}
-        history={this.props.history}
         addComment={this.props.addComment}
         editComment={this.props.editComment}
         deleteComment={this.props.deleteComment}
         voteComment={this.props.voteComment}
-        isCommentFetching={this.props.isCommentFetching}
+        history={this.props.history}
+        postToEdit={this.props.postToEdit}
+        commentToEdit={this.props.commentToEdit}
+        postEditable={this.props.postEditable}
+        commentEditable={this.props.commentEditable}
       />
     )
   }
@@ -59,16 +64,28 @@ const mapStateToProps = (state, ownProps) => {
     categories: state.categories,
     post,
     comments: state.comments,
-    isCommentFetching: state.isCommentFetching
+    isPostEditable: state.postEditable,
+    isCommentEditable: state.commentEditable,
+    comment: state.commentToEdit
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadPostDetail: (postID) => { dispatch(fetchPostDetail(postID)) },
-  loadPosts: (category) => { dispatch(fetchPosts(category))},
-  loadCategories: () => { dispatch(fetchCategories()) },
-  loadComments: () => { dispatch(fetchComments(ownProps.match.params.post_id)) },
-  changeCategory: (category) => { dispatch(categoryChange(category)) },
+  loadPostDetail: (postID) => {
+    dispatch(fetchPostDetail(postID))
+  },
+  loadPosts: (category) => {
+    dispatch(fetchPosts(category))
+  },
+  loadCategories: () => {
+    dispatch(fetchCategories())
+  },
+  loadComments: () => {
+    dispatch(fetchComments(ownProps.match.params.post_id))
+  },
+  changeCategory: (category) => {
+    dispatch(categoryChange(category))
+  },
   votePost: (id, option) => {
     dispatch(votePost(id, option))
   },
@@ -89,6 +106,18 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   voteComment: (id, option) => {
     dispatch(voteComment(id, option))
+  },
+  postToEdit: (post) => {
+    dispatch(postToEdit(post))
+  },
+  commentToEdit: (comment) => {
+    dispatch(commentToEdit(comment))
+  },
+  postEditable: (editable) => {
+    dispatch(postEditable(editable))
+  },
+  commentEditable: (editable) => {
+    dispatch(commentEditable(editable))
   }
 })
 

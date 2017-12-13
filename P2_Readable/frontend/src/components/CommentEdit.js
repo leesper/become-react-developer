@@ -14,8 +14,8 @@ class CommentEditor extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        if (this.props.commentID) {
-          this.props.handleEditComment(this.props.commentID, values.comment)
+        if (this.props.comment.id) {
+          this.props.handleEditComment(this.props.comment.id, values.comment)
         } else {
           this.props.handleAddComment(values.author, values.comment)
         }
@@ -50,7 +50,7 @@ class CommentEditor extends React.Component {
             </FormItem>
 
             {
-              !this.props.commentID &&
+              this.props.comment && !this.props.comment.id &&
               <FormItem
                 validateStatus={authorError ? 'error' : ''}
                 help={authorError || ''}
@@ -86,9 +86,10 @@ class CommentEditor extends React.Component {
 
 const CommentEdit = Form.create({
   mapPropsToFields(props) {
+    console.log("PROPS POST", props)
     return {
-      author: Form.createFormField({value: props.author}),
-      comment: Form.createFormField({value: props.comment})
+      author: Form.createFormField({value: props.comment && props.comment.author}),
+      comment: Form.createFormField({value: props.comment && props.comment.body})
     }
   }
 })(CommentEditor)

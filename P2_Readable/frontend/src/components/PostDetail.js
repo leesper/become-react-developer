@@ -11,68 +11,50 @@ import { guid } from "../utils"
 class PostDetail extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      commentID: "",
-      commentAuthor: "",
-      comment: "",
-      commentVisible: false,
-      postID: "",
-      postTitle: "",
-      postContent: "",
-      postVisible: false
-    }
   }
 
-  onCommentEdit = (id, author, comment) => {
-    this.setState({
-      commentID: id,
-      commentAuthor: author,
-      comment: comment,
-      commentVisible: true
+  onCommentEdit = (id, author, body) => {
+    this.commentToEdit({
+      id,
+      author,
+      body
     })
+    this.commentEditable(true)
   }
 
-  onPostEdit = (id, title, body) => {
-    this.setState({
-      postID: id,
-      postTitle: title,
-      postContent: body,
-      postVisible: true
+  onPostEdit = (id, title, author, category, body) => {
+    this.props.postToEdit({
+      id,
+      title,
+      author,
+      category,
+      body,
     })
+    this.props.postEditable(true)
   }
 
   handleEditPost = (id, title, body) => {
     this.props.editPost(id, title, body)
-    this.setState({
-      postVisible: false
-    })
+    this.props.postEditable(false)
   }
 
   handleCancelPost = () => {
-    this.setState({
-      postVisible: false
-    })
+    this.props.postEditable(false)
   }
 
   handleCancelComment = () => {
-    this.setState({
-      commentVisible: false
-    })
+    this.props.commentEditable(false)
   }
 
   handleAddComment = (author, comment) => {
     this.props.addComment(guid(), Date.now(), comment, author, this.props.post.id)
-    this.setState({
-      commentVisible: false
-    })
+    this.props.commentEditable(false)
     this.props.loadPostDetail(this.props.post.id)
   }
 
   handleEditComment = (id, comment) => {
     this.props.editComment(id, Date.now(), comment)
-    this.setState({
-      commentVisible: false
-    })
+    this.props.commentEditable(false)
   }
 
   render() {
@@ -192,20 +174,15 @@ class PostDetail extends React.Component {
           />
         }
         <PostEdit
-          visible={this.state.postVisible}
-          postID={this.props.post && this.props.post.id}
-          title={this.props.post && this.props.post.title}
-          author={this.props.post && this.props.post.author}
-          content={this.props.post && this.props.post.body}
+          visible={this.props.isPostEditable}
+          post={this.props.post}
           categories={this.props.categories}
           handleEditPost={this.handleEditPost}
           handleCancel={this.handleCancelPost}
         />
         <CommentEdit
-          visible={this.state.commentVisible}
-          commentID={this.state.commentID}
-          author={this.state.commentAuthor}
-          comment={this.state.comment}
+          visible={this.props.isCommentEditable}
+          comment={this.props.comment}
           handleAddComment={this.handleAddComment}
           handleEditComment={this.handleEditComment}
           handleCancel={this.handleCancelComment}
