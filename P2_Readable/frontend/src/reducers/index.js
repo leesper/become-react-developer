@@ -14,7 +14,8 @@ import {
   VOTE_COMMENT_SUCCESS,
   CATEGORY_CHANGE,
   SORT_BY_VOTE, SORT_BY_DATE, SORT_BY_CATEGORY,
-  POST_TO_EDIT, COMMENT_TO_EDIT
+  POST_TO_EDIT, COMMENT_TO_EDIT,
+  POST_EDITABLE, COMMENT_EDITABLE
 } from "../actions"
 
 const categoryRoot = {
@@ -36,13 +37,17 @@ const categoryRoot = {
 //     title,
 //     author,
 //     category,
-//     body
+//     body,
+//     visible
 //   },
 //   commentToEdit: {
 //     id,
 //     author,
-//     body
-//   }
+//     body,
+//     visible
+//   },
+//   postEditable: false,
+//   commentEditable: false
 // }
 
 const categories = (state = [categoryRoot], action) => {
@@ -89,6 +94,7 @@ const posts = (state = [], action) => {
   }
 }
 
+
 const comments = (state = [], action) => {
   switch (action.type) {
     case COMMENTS_SUCCESS:
@@ -125,7 +131,8 @@ const postToEdit = (state = {
   title: "",
   author: "",
   category: "",
-  body: ""
+  body: "",
+  visible: false
 }, action) => {
   switch (action.type) {
     case POST_TO_EDIT:
@@ -140,7 +147,8 @@ const postToEdit = (state = {
 const commentToEdit = (state = {
   id: "",
   author: "",
-  body: ""
+  body: "",
+  visible: false
 }, action) => {
   switch (action.type) {
     case COMMENT_TO_EDIT:
@@ -152,13 +160,33 @@ const commentToEdit = (state = {
   }
 }
 
+const postEditable = (state = false, action) => {
+  switch (action.type) {
+    case POST_EDITABLE:
+      return action.editable
+    default:
+      return state
+  }
+}
+
+const commentEditable = (state = false, action) => {
+  switch (action.type) {
+    case COMMENT_EDITABLE:
+      return action.editable
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   categories,
   posts,
   comments,
   category,
   postToEdit,
-  commentToEdit
+  commentToEdit,
+  postEditable,
+  commentEditable
 })
 
 export default rootReducer;

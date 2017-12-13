@@ -13,7 +13,11 @@ import {
   votePost,
   sortByVote,
   sortByDate,
-  sortByCategory
+  sortByCategory,
+  postToEdit,
+  commentToEdit,
+  postEditable,
+  commentEditable
 } from "../actions"
 
 const listData = [];
@@ -35,15 +39,12 @@ class MainApp extends React.Component {
   render() {
     return (
       <MainList
-        isCategoriesFetching={this.props.isCategoriesFetching}
         categories={this.props.categories}
         category={this.props.match.params.category}
-        isPostFetching={this.props.isPostFetching}
-        isPostUpdating={this.props.isPostUpdating}
-        updatedPost={this.props.updatedPost}
         posts={this.props.posts}
-        onView={this.props.onView}
-        onEdit={this.props.onEdit}
+        post={this.props.post}
+        isPostEditable={this.props.isPostEditable}
+        isCommentEditable={this.props.isCommentEditable}
         loadPosts={this.props.loadPosts}
         changeCategory={this.props.changeCategory}
         addPost={this.props.addPost}
@@ -54,6 +55,10 @@ class MainApp extends React.Component {
         sortByVote={this.props.sortByVote}
         sortByDate={this.props.sortByDate}
         sortByCategory={this.props.sortByCategory}
+        postToEdit={this.props.postToEdit}
+        commentToEdit={this.props.commentToEdit}
+        postEditable={this.props.postEditable}
+        commentEditable={this.props.commentEditable}
       />
     )
   }
@@ -61,23 +66,26 @@ class MainApp extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isCategoriesFetching: state.isCategoriesFetching,
     categories: state.categories,
     category: state.category,
-    isPostFetching: state.isPostFetching,
-    isPostUpdating: state.isPostUpdating,
-    updatedPost: state.updatedPost,
-    posts: state.posts
+    posts: state.posts,
+    post: state.postToEdit,
+    isPostEditable: state.postEditable,
+    isCommentEditable: state.commentEditable
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
-    onView: () => { message.info("view") },
-    onEdit: () => { message.info("edit") },
-    loadCategories: () => { dispatch(fetchCategories()) },
-    loadPosts: (category) => { dispatch(fetchPosts(category))},
-    changeCategory: (category) => { dispatch(categoryChange(category)) },
+    loadCategories: () => {
+      dispatch(fetchCategories())
+    },
+    loadPosts: (category) => {
+      dispatch(fetchPosts(category))
+    },
+    changeCategory: (category) => {
+      dispatch(categoryChange(category))
+    },
     addPost: (id, timestamp, title, body, author, category) => {
       dispatch(addPost(id, timestamp, title, body, author, category))
     },
@@ -101,6 +109,18 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     },
     sortByCategory: () => {
       dispatch(sortByCategory())
+    },
+    postToEdit: (post) => {
+      dispatch(postToEdit(post))
+    },
+    commentToEdit: (comment) => {
+      dispatch(commentToEdit(comment))
+    },
+    postEditable: (editable) => {
+      dispatch(postEditable(editable))
+    },
+    commentEditable: (editable) => {
+      dispatch(commentEditable(editable))
     }
   }
 )

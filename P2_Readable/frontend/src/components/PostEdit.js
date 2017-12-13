@@ -16,9 +16,9 @@ class PostEditor extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values, this.props.postID);
-        if (this.props.postID) {
-          this.props.handleEditPost(this.props.postID, values.title, values.content)
+        console.log('Received values of form: ', values);
+        if (this.props.post.id) {
+          this.props.handleEditPost(this.props.post.id, values.title, values.content)
         } else {
           this.props.handleAddPost(guid(), Date.now(), values.title, values.content, values.author, values.category)
         }
@@ -54,7 +54,7 @@ class PostEditor extends React.Component {
             </FormItem>
 
             {
-              !this.props.postID &&
+              !this.props.post.id &&
               <FormItem
               validateStatus={authorError ? 'error' : ''}
               help={authorError || ''}
@@ -68,7 +68,7 @@ class PostEditor extends React.Component {
             }
 
             {
-              !this.props.postID &&
+              !this.props.post.id &&
               <FormItem>
                   {getFieldDecorator('category', {
                     initialValue: "react"
@@ -118,10 +118,11 @@ class PostEditor extends React.Component {
 
 const PostEdit = Form.create({
   mapPropsToFields(props) {
+    console.log("PROPS POST", props)
     return {
-      title: Form.createFormField({value: props.title}),
-      author: Form.createFormField({value: props.author}),
-      content: Form.createFormField({value: props.content}),
+      title: Form.createFormField({value: props.post.title}),
+      author: Form.createFormField({value: props.post.author}),
+      content: Form.createFormField({value: props.post.body}),
     }
   }
 })(PostEditor)

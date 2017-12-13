@@ -178,3 +178,9 @@ export const postToEdit = (post) => ({type: POST_TO_EDIT, post})
 
 export const COMMENT_TO_EDIT = "COMMENT_TO_EDIT"
 export const commentToEdit = (comment) => ({type: COMMENT_TO_EDIT, comment})
+
+export const POST_EDITABLE = "POST_EDITABLE"
+export const postEditable = (editable) => ({type: POST_EDITABLE, editable})
+
+export const COMMENT_EDITABLE = "COMMENT_EDITABLE"
+export const commentEditable = (editable) => ({type: COMMENT_EDITABLE, editable})

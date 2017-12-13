@@ -11,27 +11,15 @@ import PostEdit from "./PostEdit"
 const SubMenu = Menu.SubMenu
 
 class MainList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      postID: "",
-      title: "",
-      author: "",
-      content: "",
-      category: "",
-      visible: false
-    }
-  }
-
-  onEdit = (id, title, author, content, category) => {
-    this.setState({
-      postID: id,
-      title: title,
-      author: author,
-      content: content,
-      category: category,
-      visible: true
+  onEdit = (id, title, author, category, body) => {
+    this.props.postToEdit({
+      id,
+      title,
+      author,
+      category,
+      body,
     })
+    this.props.postEditable(true)
   }
 
   onMenuItemClick = ({ key }) => {
@@ -48,16 +36,12 @@ class MainList extends React.Component {
 
   handleAddPost = (id, timestamp, title, content, author, category) => {
     this.props.addPost(id, timestamp, title, content, author, category)
-    this.setState({
-      visible: false
-    })
+    this.props.postEditable(false)
   }
 
   handleEditPost = (id, title, body) => {
     this.props.editPost(id, title, body)
-    this.setState({
-      visible: false
-    })
+    this.props.postEditable(false)
   }
 
   handleDeletePost = (id) => {
@@ -65,9 +49,7 @@ class MainList extends React.Component {
   }
 
   handleCancel = () => {
-    this.setState({
-      visible: false
-    })
+    this.props.postEditable(false)
   }
 
   render() {
@@ -101,55 +83,48 @@ class MainList extends React.Component {
         </Row>
         <Row>
           <Col span={24}>
-            {
-              this.props.isPostFetching ?
-              <Spin /> :
-              <List
-                itemLayout="vertical"
-                size="large"
-                dataSource={
-                  this.props.category ?
-                  this.props.posts.filter(post => post.category === this.props.category) : this.props.posts
-                }
-                renderItem={item => (
-                  <List.Item
-                    key={item.title}
-                    actions={[
-                      <Voter
-                        text={item.voteScore}
-                        onLike={() => this.props.votePost(item.id, "upVote")}
-                        onDislike={() => this.props.votePost(item.id, "downVote")}
-                      />,
-                      <IconText type="user" text={item.author} />,
-                      <IconText type="message" text={item.commentCount} />,
-                      <IconText type="folder" text={item.category} />,
-                      <IconText type="calendar" text={formatDate(item.timestamp)} />,
-                      <Button
-                        icon="edit"
-                        type="primary"
-                        onClick={() => this.onEdit(item.id, item.title, item.author, item.body, item.category)}
-                        >
-                          Edit
-                        </Button>,
-                        <Button icon="delete" type="danger" onClick={() => this.handleDeletePost(item.id)}>Delete</Button>]}
-                  >
-                    <List.Item.Meta
-                      title={<Link to={`${item.category}/${item.id}`}>{item.title}</Link>}
-                    />
-                  </List.Item>
-                )}
-              />
-            }
+            <List
+              itemLayout="vertical"
+              size="large"
+              dataSource={
+                this.props.category ?
+                this.props.posts.filter(post => post.category === this.props.category) : this.props.posts
+              }
+              renderItem={item => (
+                <List.Item
+                  key={item.title}
+                  actions={[
+                    <Voter
+                      text={item.voteScore}
+                      onLike={() => this.props.votePost(item.id, "upVote")}
+                      onDislike={() => this.props.votePost(item.id, "downVote")}
+                    />,
+                    <IconText type="user" text={item.author} />,
+                    <IconText type="message" text={item.commentCount} />,
+                    <IconText type="folder" text={item.category} />,
+                    <IconText type="calendar" text={formatDate(item.timestamp)} />,
+                    <Button
+                      icon="edit"
+                      type="primary"
+                      onClick={() => this.onEdit(item.id, item.title, item.author, item.category, item.body)}
+                      >
+                        Edit
+                      </Button>,
+                      <Button icon="delete" type="danger" onClick={() => this.handleDeletePost(item.id)}>Delete</Button>]}
+                      >
+                        <List.Item.Meta
+                          title={<Link to={`${item.category}/${item.id}`}>{item.title}</Link>}
+                        />
+                      </List.Item>
+                    )}
+                  />
           </Col>
         </Row>
         <Row>
           <Col span={24}>
             <PostEdit
-              visible={this.state.visible}
-              postID={this.state.postID}
-              title={this.state.title}
-              author={this.state.author}
-              content={this.state.content}
+              visible={this.props.isPostEditable}
+              post={this.props.post}
               categories={this.props.categories}
               handleAddPost={this.handleAddPost}
               handleEditPost={this.handleEditPost}
