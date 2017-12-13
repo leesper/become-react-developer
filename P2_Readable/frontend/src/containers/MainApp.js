@@ -12,7 +12,8 @@ import {
   deletePost,
   votePost,
   sortByVote,
-  sortByDate
+  sortByDate,
+  sortByCategory
 } from "../actions"
 
 const listData = [];
@@ -52,6 +53,7 @@ class MainApp extends React.Component {
         votePost={this.props.votePost}
         sortByVote={this.props.sortByVote}
         sortByDate={this.props.sortByDate}
+        sortByCategory={this.props.sortByCategory}
       />
     )
   }
@@ -96,6 +98,9 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     },
     sortByDate: () => {
       dispatch(sortByDate())
+    },
+    sortByCategory: () => {
+      dispatch(sortByCategory())
     }
   }
 )

@@ -253,3 +253,6 @@ export const sortByVote = () => ({type: SORT_BY_VOTE})
 
 export const SORT_BY_DATE = "SORT_BY_DATE"
 export const sortByDate = () => ({type: SORT_BY_DATE})
+
+export const SORT_BY_CATEGORY = "SORT_BY_CATEGORY"
+export const sortByCategory = () => ({type: SORT_BY_CATEGORY})

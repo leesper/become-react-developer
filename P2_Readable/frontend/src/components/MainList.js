@@ -41,6 +41,8 @@ class MainList extends React.Component {
       this.props.sortByVote()
     } else if (key === "byTTS") {
       this.props.sortByDate()
+    } else if (key === "byCategory") {
+      this.props.sortByCategory()
     }
   }
 
@@ -69,7 +71,6 @@ class MainList extends React.Component {
   }
 
   render() {
-    console.log(this.props.category)
     return (
       <div style={{ margin: "30px" }}>
         <Row>
@@ -85,6 +86,7 @@ class MainList extends React.Component {
               <SubMenu key="sort" title={<span>排序</span>}>
                 <Menu.Item key="byVote">按投票分数</Menu.Item>
                 <Menu.Item key="byTTS">按创建时间</Menu.Item>
+                <Menu.Item key="byCategory">按照类别</Menu.Item>
               </SubMenu>
             </Menu>
           </Col>

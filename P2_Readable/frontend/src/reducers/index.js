@@ -8,7 +8,7 @@ import {
   EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE,
   DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE,
   VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
-  SORT_BY_VOTE, SORT_BY_DATE,
+  SORT_BY_VOTE, SORT_BY_DATE, SORT_BY_CATEGORY,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
   EDIT_COMMENT_REQUEST, EDIT_COMMENT_SUCCESS, EDIT_COMMENT_FAILURE,
   DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE,
@@ -119,6 +119,10 @@ const posts = (state = [], action) => {
     case SORT_BY_DATE:
       // sort by date
       return [...state].sort((postA, postB) => postB.timestamp - postA.timestamp)
+    case SORT_BY_CATEGORY:
+      return [...state].sort((postA, postB) => {
+        return postB.category < postA.category ? 1 : -1
+      })
     case POST_DETAIL_FAILURE:
     case ADD_POST_FAILURE:
     case EDIT_POST_FAILURE:
