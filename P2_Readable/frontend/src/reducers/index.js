@@ -1,18 +1,20 @@
 import { combineReducers } from "redux"
 import {
-  CATEGORIES_REQUEST, CATEGORIES_SUCCESS, CATEGORIES_FAILURE, CATEGORY_CHANGE,
-  POSTS_REQUEST, POSTS_SUCCESS, POSTS_FAILURE,
-  COMMENTS_SUCCESS, COMMENTS_FAILURE,
-  POST_DETAIL_REQUEST, POST_DETAIL_SUCCESS, POST_DETAIL_FAILURE,
-  ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
-  EDIT_POST_REQUEST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE,
-  DELETE_POST_REQUEST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE,
-  VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
+  CATEGORIES_SUCCESS,
+  POSTS_SUCCESS,
+  COMMENTS_SUCCESS,
+  POST_DETAIL_SUCCESS,
+  ADD_POST_SUCCESS,
+  EDIT_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
+  VOTE_POST_SUCCESS,
+  ADD_COMMENT_SUCCESS,
+  EDIT_COMMENT_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  VOTE_COMMENT_SUCCESS,
+  CATEGORY_CHANGE,
   SORT_BY_VOTE, SORT_BY_DATE, SORT_BY_CATEGORY,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
-  EDIT_COMMENT_REQUEST, EDIT_COMMENT_SUCCESS, EDIT_COMMENT_FAILURE,
-  DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE,
-  VOTE_COMMENT_REQUEST, VOTE_COMMENT_SUCCESS, VOTE_COMMENT_FAILURE
+  POST_TO_EDIT, COMMENT_TO_EDIT
 } from "../actions"
 
 const categoryRoot = {
@@ -20,33 +22,28 @@ const categoryRoot = {
   path: "/"
 };
 
-// design of state object:
+// design of state
 // {
-//   isCategoriesFetching: false,
 //   categories: [],
+//   posts: [],
+//   comments: [],
 //   category: {
 //     name: "root",
 //     path: "/"
 //   },
-//   isPostFetching: false,
-//   isPostUpdating: false,
-//   posts: [],
-//   isCommentFetching: false,
-//   comments: []
+//   postToEdit: {
+//     id,
+//     title,
+//     author,
+//     category,
+//     body
+//   },
+//   commentToEdit: {
+//     id,
+//     author,
+//     body
+//   }
 // }
-
-const isCategoriesFetching = (state = false, action) => {
-  switch (action.type) {
-    case CATEGORIES_REQUEST:
-      return true
-    case CATEGORIES_SUCCESS:
-      return false
-    case CATEGORIES_FAILURE:
-      return false
-    default:
-      return state
-  }
-}
 
 const categories = (state = [categoryRoot], action) => {
   switch (action.type) {
@@ -55,45 +52,8 @@ const categories = (state = [categoryRoot], action) => {
         categoryRoot,
         ...action.categories
       ]
-    case CATEGORIES_FAILURE:
     default:
       return state;
-  }
-}
-
-const category = (state = categoryRoot, action) => {
-  switch (action.type) {
-    case CATEGORY_CHANGE:
-      return action.category;
-    default:
-      return state;
-  }
-};
-
-const isPostFetching = (state = false, action) => {
-  switch (action.type) {
-    case POSTS_REQUEST:
-    case POST_DETAIL_REQUEST:
-    case ADD_POST_REQUEST:
-    case EDIT_POST_REQUEST:
-    case DELETE_POST_REQUEST:
-    case VOTE_POST_REQUEST:
-      return true
-    case POSTS_SUCCESS:
-    case POSTS_FAILURE:
-    case POST_DETAIL_SUCCESS:
-    case POST_DETAIL_FAILURE:
-    case ADD_POST_SUCCESS:
-    case ADD_POST_FAILURE:
-    case EDIT_POST_SUCCESS:
-    case EDIT_POST_FAILURE:
-    case DELETE_POST_SUCCESS:
-    case DELETE_POST_FAILURE:
-    case VOTE_POST_SUCCESS:
-    case VOTE_POST_FAILURE:
-      return false
-    default:
-      return state
   }
 }
 
@@ -124,11 +84,6 @@ const posts = (state = [], action) => {
       return [...state].sort((postA, postB) => {
         return postB.category < postA.category ? 1 : -1
       })
-    case POST_DETAIL_FAILURE:
-    case ADD_POST_FAILURE:
-    case EDIT_POST_FAILURE:
-    case VOTE_POST_FAILURE:
-    case POSTS_FAILURE:
     default:
       return state
   }
@@ -151,45 +106,59 @@ const comments = (state = [], action) => {
       })
     case DELETE_COMMENT_SUCCESS:
       return state.filter(comment => comment.id !== action.comment.id)
-    case COMMENTS_FAILURE:
-    case ADD_COMMENT_FAILURE:
-    case EDIT_COMMENT_FAILURE:
-    case DELETE_COMMENT_FAILURE:
-    case VOTE_COMMENT_FAILURE:
     default:
       return state
   }
 }
 
-const isCommentFetching = (state = false, action) => {
+const category = (state = categoryRoot, action) => {
   switch (action.type) {
-    case ADD_COMMENT_REQUEST:
-    case EDIT_COMMENT_REQUEST:
-    case DELETE_COMMENT_REQUEST:
-    case VOTE_COMMENT_REQUEST:
-      return true
-    case ADD_COMMENT_SUCCESS:
-    case ADD_COMMENT_FAILURE:
-    case EDIT_COMMENT_SUCCESS:
-    case EDIT_COMMENT_FAILURE:
-    case DELETE_COMMENT_SUCCESS:
-    case DELETE_COMMENT_FAILURE:
-    case VOTE_COMMENT_SUCCESS:
-    case VOTE_COMMENT_FAILURE:
-      return false
+    case CATEGORY_CHANGE:
+      return action.category;
+    default:
+      return state;
+  }
+};
+
+const postToEdit = (state = {
+  id: "",
+  title: "",
+  author: "",
+  category: "",
+  body: ""
+}, action) => {
+  switch (action.type) {
+    case POST_TO_EDIT:
+      return {
+        ...action.post
+      }
+    default:
+      return state
+  }
+}
+
+const commentToEdit = (state = {
+  id: "",
+  author: "",
+  body: ""
+}, action) => {
+  switch (action.type) {
+    case COMMENT_TO_EDIT:
+      return {
+        ...action.comment
+      }
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  isCategoriesFetching,
   categories,
-  category,
-  isPostFetching,
   posts,
-  isCommentFetching,
-  comments
+  comments,
+  category,
+  postToEdit,
+  commentToEdit
 })
 
 export default rootReducer;
