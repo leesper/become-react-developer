@@ -11,7 +11,8 @@ import {
   editPost,
   deletePost,
   addComment,
-  editComment
+  editComment,
+  deleteComment
 } from "../actions"
 import { message } from "antd"
 
@@ -38,6 +39,8 @@ class Poster extends React.Component {
         history={this.props.history}
         addComment={this.props.addComment}
         editComment={this.props.editComment}
+        deleteComment={this.props.deleteComment}
+        isCommentFetching={this.props.isCommentFetching}
       />
     )
   }
@@ -53,7 +56,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     categories: state.categories,
     post,
-    comments: state.comments
+    comments: state.comments,
+    isCommentFetching: state.isCommentFetching
   }
 }
 
@@ -77,6 +81,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   editComment: (id, timestamp, body) => {
     dispatch(editComment(id, timestamp, body))
+  },
+  deleteComment: (id) => {
+    dispatch(deleteComment(id))
   }
 })
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Button, Row, Col, Divider, List } from "antd"
+import { Card, Button, Row, Col, Divider, List, Spin } from "antd"
 import IconText from "./IconText"
 import Voter from "./Voter"
 import { formatDate } from "../utils"
@@ -149,43 +149,47 @@ class PostDetail extends React.Component {
           <Divider dashed />
           <p>{this.props.post ? this.props.post.body : ""}</p>
           <Divider dashed />
-        <List
-          itemLayout="vertical"
-          dataSource={this.props.comments}
-          renderItem={item => (
-            <List.Item
-              actions={[
-                <Voter
-                  text={item.voteScore}
-                  onLike={this.props.onLike}
-                  onDislike={this.props.onDislike}
-                />,
-                <IconText
-                  type="user"
-                  text={item.author}
-                />,
-                <IconText
-                  type="calendar"
-                  text={formatDate(item.timestamp)}
-                />,
-                <Button
-                  icon="edit"
-                  type="primary"
-                  onClick={() => this.onCommentEdit(item.id, item.author, item.body)}
-                />,
-                <Button
-                  icon="delete"
-                  type="danger"
+        {
+          this.props.isCommentFetching ? <Spin /> :
+          <List
+            itemLayout="vertical"
+            dataSource={this.props.comments}
+            renderItem={item => (
+              <List.Item
+                actions={[
+                  <Voter
+                    text={item.voteScore}
+                    onLike={this.props.onLike}
+                    onDislike={this.props.onDislike}
+                  />,
+                  <IconText
+                    type="user"
+                    text={item.author}
+                  />,
+                  <IconText
+                    type="calendar"
+                    text={formatDate(item.timestamp)}
+                  />,
+                  <Button
+                    icon="edit"
+                    type="primary"
+                    onClick={() => this.onCommentEdit(item.id, item.author, item.body)}
+                  />,
+                  <Button
+                    icon="delete"
+                    type="danger"
+                    onClick={() => this.props.deleteComment(item.id)}
+                  />
+                ]}
+                >
+                <List.Item.Meta
+                  key={item.id}
+                  description={item.body}
                 />
-              ]}
-              >
-              <List.Item.Meta
-                key={item.id}
-                description={item.body}
-              />
-            </List.Item>
-          )}
-        />
+              </List.Item>
+            )}
+          />
+        }
         <PostEdit
           visible={this.state.postVisible}
           postID={this.props.post && this.props.post.id}

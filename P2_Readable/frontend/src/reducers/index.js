@@ -10,7 +10,8 @@ import {
   VOTE_POST_REQUEST, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
   SORT_BY_VOTE, SORT_BY_DATE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
-  EDIT_COMMENT_REQUEST, EDIT_COMMENT_SUCCESS, EDIT_COMMENT_FAILURE
+  EDIT_COMMENT_REQUEST, EDIT_COMMENT_SUCCESS, EDIT_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE
 } from "../actions"
 
 const categoryRoot = {
@@ -141,9 +142,12 @@ const comments = (state = [], action) => {
       return state.map(comment => {
         return comment.id === action.comment.id ? action.comment : comment
       })
+    case DELETE_COMMENT_SUCCESS:
+      return state.filter(comment => comment.id !== action.comment.id)
     case COMMENTS_FAILURE:
     case ADD_COMMENT_FAILURE:
     case EDIT_COMMENT_FAILURE:
+    case DELETE_COMMENT_FAILURE:
     default:
       return state
   }
@@ -158,6 +162,8 @@ const isCommentFetching = (state = false, action) => {
     case ADD_COMMENT_FAILURE:
     case EDIT_COMMENT_SUCCESS:
     case EDIT_COMMENT_FAILURE:
+    case DELETE_COMMENT_SUCCESS:
+    case DELETE_COMMENT_FAILURE:
       return false
     default:
       return state
