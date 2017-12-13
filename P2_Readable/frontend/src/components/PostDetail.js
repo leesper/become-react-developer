@@ -65,6 +65,7 @@ class PostDetail extends React.Component {
     this.setState({
       commentVisible: false
     })
+    this.props.loadPostDetail(this.props.post.id)
   }
 
   handleEditComment = (id, comment) => {
@@ -106,7 +107,7 @@ class PostDetail extends React.Component {
             type="danger"
             onClick={() => {
               this.props.deletePost(this.props.post.id)
-              this.props.history.push("/")
+              this.props.history.goBack()
             }}
             >
             Delete
@@ -159,8 +160,8 @@ class PostDetail extends React.Component {
                 actions={[
                   <Voter
                     text={item.voteScore}
-                    onLike={this.props.onLike}
-                    onDislike={this.props.onDislike}
+                    onLike={() => {this.props.voteComment(item.id, "upVote")}}
+                    onDislike={() => {this.props.voteComment(item.id, "downVote")}}
                   />,
                   <IconText
                     type="user"

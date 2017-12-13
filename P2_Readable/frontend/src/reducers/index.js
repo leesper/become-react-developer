@@ -11,7 +11,8 @@ import {
   SORT_BY_VOTE, SORT_BY_DATE,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
   EDIT_COMMENT_REQUEST, EDIT_COMMENT_SUCCESS, EDIT_COMMENT_FAILURE,
-  DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE
+  DELETE_COMMENT_REQUEST, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE,
+  VOTE_COMMENT_REQUEST, VOTE_COMMENT_SUCCESS, VOTE_COMMENT_FAILURE
 } from "../actions"
 
 const categoryRoot = {
@@ -139,6 +140,7 @@ const comments = (state = [], action) => {
         action.comment
       ]
     case EDIT_COMMENT_SUCCESS:
+    case VOTE_COMMENT_SUCCESS:
       return state.map(comment => {
         return comment.id === action.comment.id ? action.comment : comment
       })
@@ -148,6 +150,7 @@ const comments = (state = [], action) => {
     case ADD_COMMENT_FAILURE:
     case EDIT_COMMENT_FAILURE:
     case DELETE_COMMENT_FAILURE:
+    case VOTE_COMMENT_FAILURE:
     default:
       return state
   }
@@ -157,6 +160,7 @@ const isCommentFetching = (state = false, action) => {
   switch (action.type) {
     case ADD_COMMENT_REQUEST:
     case EDIT_COMMENT_REQUEST:
+    case VOTE_COMMENT_REQUEST:
       return true
     case ADD_COMMENT_SUCCESS:
     case ADD_COMMENT_FAILURE:
@@ -164,6 +168,8 @@ const isCommentFetching = (state = false, action) => {
     case EDIT_COMMENT_FAILURE:
     case DELETE_COMMENT_SUCCESS:
     case DELETE_COMMENT_FAILURE:
+    case VOTE_COMMENT_SUCCESS:
+    case VOTE_COMMENT_FAILURE:
       return false
     default:
       return state

@@ -12,7 +12,8 @@ import {
   deletePost,
   addComment,
   editComment,
-  deleteComment
+  deleteComment,
+  voteComment
 } from "../actions"
 import { message } from "antd"
 
@@ -33,6 +34,7 @@ class Poster extends React.Component {
         onDelete={this.props.onDelete}
         changeCategory={this.props.changeCategory}
         loadPosts={this.props.loadPosts}
+        loadPostDetail={this.props.loadPostDetail}
         votePost={this.props.votePost}
         editPost={this.props.editPost}
         deletePost={this.props.deletePost}
@@ -40,6 +42,7 @@ class Poster extends React.Component {
         addComment={this.props.addComment}
         editComment={this.props.editComment}
         deleteComment={this.props.deleteComment}
+        voteComment={this.props.voteComment}
         isCommentFetching={this.props.isCommentFetching}
       />
     )
@@ -84,6 +87,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   deleteComment: (id) => {
     dispatch(deleteComment(id))
+  },
+  voteComment: (id, option) => {
+    dispatch(voteComment(id, option))
   }
 })
 

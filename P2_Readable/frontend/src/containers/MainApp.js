@@ -36,6 +36,7 @@ class MainApp extends React.Component {
       <MainList
         isCategoriesFetching={this.props.isCategoriesFetching}
         categories={this.props.categories}
+        category={this.props.match.params.category}
         isPostFetching={this.props.isPostFetching}
         isPostUpdating={this.props.isPostUpdating}
         updatedPost={this.props.updatedPost}

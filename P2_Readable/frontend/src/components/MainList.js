@@ -69,6 +69,7 @@ class MainList extends React.Component {
   }
 
   render() {
+    console.log(this.props.category)
     return (
       <div style={{ margin: "30px" }}>
         <Row>
@@ -104,7 +105,10 @@ class MainList extends React.Component {
               <List
                 itemLayout="vertical"
                 size="large"
-                dataSource={this.props.posts}
+                dataSource={
+                  this.props.category ?
+                  this.props.posts.filter(post => post.category === this.props.category) : this.props.posts
+                }
                 renderItem={item => (
                   <List.Item
                     key={item.title}
