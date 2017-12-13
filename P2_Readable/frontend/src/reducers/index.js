@@ -31,6 +31,7 @@ const categoryRoot = {
 //   isPostFetching: false,
 //   isPostUpdating: false,
 //   posts: [],
+//   isCommentFetching: false,
 //   comments: []
 // }
 
@@ -164,6 +165,7 @@ const isCommentFetching = (state = false, action) => {
   switch (action.type) {
     case ADD_COMMENT_REQUEST:
     case EDIT_COMMENT_REQUEST:
+    case DELETE_COMMENT_REQUEST:
     case VOTE_COMMENT_REQUEST:
       return true
     case ADD_COMMENT_SUCCESS:

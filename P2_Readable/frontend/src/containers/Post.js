@@ -15,7 +15,6 @@ import {
   deleteComment,
   voteComment
 } from "../actions"
-import { message } from "antd"
 
 class Poster extends React.Component {
   componentDidMount() {
