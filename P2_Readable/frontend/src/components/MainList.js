@@ -7,8 +7,22 @@ import Voter from "./Voter"
 import { formatDate } from "../utils"
 import Nav from "./Nav"
 import PostEdit from "./PostEdit"
+import NotFoundPage from "./NotFoundPage"
 
 const SubMenu = Menu.SubMenu
+
+const validCategory = (category, categories) => {
+  if (!category) { // this means the root category "/"
+    return true
+  }
+
+  for (let i = 0; i < categories.length; i++) {
+    if (category === categories[i].path) {
+      return true
+    }
+  }
+  return false
+}
 
 class MainList extends React.Component {
   onEdit = (id, title, author, category, body) => {
@@ -53,7 +67,11 @@ class MainList extends React.Component {
   }
 
   render() {
+    console.log("CATEGORY", this.props.category, this.props.categories)
     return (
+      !validCategory(this.props.category, this.props.categories) ?
+      <NotFoundPage />
+      :
       <div style={{ margin: "30px" }}>
         <Row>
           <Col span={4}>

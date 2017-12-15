@@ -7,6 +7,7 @@ import Nav from "./Nav"
 import CommentEdit from "./CommentEdit"
 import PostEdit from "./PostEdit"
 import { guid } from "../utils"
+import NotFoundPage from "./NotFoundPage"
 
 class PostDetail extends React.Component {
   onCommentEdit = (id, author, body) => {
@@ -55,6 +56,9 @@ class PostDetail extends React.Component {
 
   render() {
     return (
+      !this.props.post ?
+      <NotFoundPage />
+      :
       <Card
         style={{ width: 900, margin: "0 auto" }}
         extra={

@@ -86,7 +86,6 @@ class CommentEditor extends React.Component {
 
 const CommentEdit = Form.create({
   mapPropsToFields(props) {
-    console.log("PROPS POST", props)
     return {
       author: Form.createFormField({value: props.comment && props.comment.author}),
       comment: Form.createFormField({value: props.comment && props.comment.body})
