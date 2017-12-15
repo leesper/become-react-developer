@@ -15,7 +15,7 @@ import {
 
 export const postsSuccess = (posts) => ({type: POSTS_SUCCESS, posts})
 
-export const fetchPosts = (category) => (dispatch => {
+export const loadPosts = (category) => (dispatch => {
   let promise
   if (category === "/") {
     promise = ReadableAPI.getAllPosts()
@@ -34,7 +34,7 @@ export const fetchPosts = (category) => (dispatch => {
 
 export const postDetailSuccess = (post) => ({type: POST_DETAIL_SUCCESS, post})
 
-export const fetchPostDetail = (postID) => ((dispatch, getState) => {
+export const loadPostDetail = (postID) => ((dispatch, getState) => {
   const state = getState()
   const post = state.posts[postID]
   // if post already cached in state, don't request server

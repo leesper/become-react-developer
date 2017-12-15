@@ -12,12 +12,8 @@ import NotFoundPage from "./NotFoundPage"
 const SubMenu = Menu.SubMenu
 
 const validCategory = (category, categories) => {
-  if (!category) { // this means the root category "/"
-    return true
-  }
-
   for (let i = 0; i < categories.length; i++) {
-    if (category === categories[i].path) {
+    if (category.path === categories[i].path) {
       return true
     }
   }
@@ -25,6 +21,12 @@ const validCategory = (category, categories) => {
 }
 
 class MainList extends React.Component {
+
+  componentDidMount() {
+    this.props.loadCategories()
+    this.props.loadPosts(this.props.match.params.category || this.props.category.path)
+  }
+
   onEdit = (id, title, author, category, body) => {
     this.props.postToEdit({
       id,
@@ -104,8 +106,8 @@ class MainList extends React.Component {
               itemLayout="vertical"
               size="large"
               dataSource={
-                this.props.category ?
-                this.props.posts.filter(post => post.category === this.props.category) : this.props.posts
+                this.props.category.path === "/" ?
+                this.props.posts : this.props.posts.filter(post => post.category === this.props.category.path)
               }
               renderItem={item => (
                 <List.Item

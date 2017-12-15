@@ -6,9 +6,9 @@ import {
 
 export const categoriesSuccess = (json) => ({type: CATEGORIES_SUCCESS, categories: json.categories})
 
-export const categoryChange = (category) => ({type: CATEGORY_CHANGE, category})
+export const changeCategory = (category) => ({type: CATEGORY_CHANGE, category})
 
-export const fetchCategories = () => (dispatch => {
+export const loadCategories = () => (dispatch => {
   ReadableAPI.getAllCategories()
   .then(
     rsp => rsp.json(),

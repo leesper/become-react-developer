@@ -1,7 +1,7 @@
 import {
   categoriesSuccess,
-  categoryChange,
-  fetchCategories
+  changeCategory,
+  loadCategories
 } from "./categoryCreators"
 
 import {
@@ -21,9 +21,9 @@ import {
 
 import {
   postsSuccess,
-  fetchPosts,
+  loadPosts,
   postDetailSuccess,
-  fetchPostDetail,
+  loadPostDetail,
   addPostSuccess,
   addPost,
   editPostSuccess,
@@ -41,8 +41,8 @@ import {
 
 export {
   categoriesSuccess,
-  categoryChange,
-  fetchCategories,
+  changeCategory,
+  loadCategories,
   commentsSuccess,
   fetchComments,
   addCommentSuccess,
@@ -56,9 +56,9 @@ export {
   commentToEdit,
   commentEditable,
   postsSuccess,
-  fetchPosts,
+  loadPosts,
   postDetailSuccess,
-  fetchPostDetail,
+  loadPostDetail,
   addPostSuccess,
   addPost,
   editPostSuccess,

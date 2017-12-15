@@ -26,8 +26,8 @@ class CommentEditor extends React.Component {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
-    const authorError = isFieldTouched('author') && getFieldError('author');
-    const commentError = isFieldTouched('comment') && getFieldError('comment');
+    const hasAuthorError = isFieldTouched('author') && getFieldError('author');
+    const hasCommentError = isFieldTouched('comment') && getFieldError('comment');
     return (
       <Modal
         title="Comment"
@@ -38,8 +38,8 @@ class CommentEditor extends React.Component {
         >
           <Form layout="vertical" onSubmit={this.handleSubmit}>
             <FormItem
-              validateStatus={commentError ? 'error' : ''}
-              help={commentError || ''}
+              validateStatus={hasCommentError ? 'error' : ''}
+              help={hasCommentError || ''}
               >
                 {getFieldDecorator('comment', {
                   rules: [{ required: true, message: 'Please input comment!' }],
@@ -51,8 +51,8 @@ class CommentEditor extends React.Component {
             {
               this.props.comment && !this.props.comment.id &&
               <FormItem
-                validateStatus={authorError ? 'error' : ''}
-                help={authorError || ''}
+                validateStatus={hasAuthorError ? 'error' : ''}
+                help={hasAuthorError || ''}
                 >
                   {getFieldDecorator('author', {
                     rules: [{ required: true, message: 'Please input author!' }],

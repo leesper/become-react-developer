@@ -1,4 +1,4 @@
-import App from "./MainApp"
+import Main from "./Main"
 import Root from "./Root"
 
-export { App, Root }
+export { Main, Root }

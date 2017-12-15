@@ -2,10 +2,10 @@ import React from "react"
 import { PostDetail } from "../components"
 import { connect } from "react-redux"
 import {
-  fetchPostDetail,
-  fetchPosts,
-  categoryChange,
-  fetchCategories,
+  loadPostDetail,
+  loadPosts,
+  changeCategory,
+  loadCategories,
   fetchComments,
   votePost,
   editPost,
@@ -75,19 +75,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   loadPostDetail: (postID) => {
-    dispatch(fetchPostDetail(postID))
+    dispatch(loadPostDetail(postID))
   },
   loadPosts: (category) => {
-    dispatch(fetchPosts(category))
+    dispatch(loadPosts(category))
   },
   loadCategories: () => {
-    dispatch(fetchCategories())
+    dispatch(loadCategories())
   },
   loadComments: () => {
     dispatch(fetchComments(ownProps.match.params.post_id))
   },
   changeCategory: (category) => {
-    dispatch(categoryChange(category))
+    dispatch(changeCategory(category))
   },
   votePost: (id, option) => {
     dispatch(votePost(id, option))
