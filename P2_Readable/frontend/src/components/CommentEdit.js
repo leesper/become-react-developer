@@ -13,7 +13,6 @@ class CommentEditor extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         if (this.props.comment.id) {
           this.props.handleEditComment(this.props.comment.id, values.comment)
         } else {

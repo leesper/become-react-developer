@@ -67,7 +67,6 @@ class MainList extends React.Component {
   }
 
   render() {
-    console.log("CATEGORY", this.props.category, this.props.categories)
     return (
       !validCategory(this.props.category, this.props.categories) ?
       <NotFoundPage />

@@ -17,16 +17,6 @@ import {
   postEditable
 } from "../actions"
 
-const listData = [];
-for (let i = 0; i < 5; i++) {
-  listData.push({
-    title: `ant design part ${i}`,
-    author: 'Leesper',
-    commentCount: `${i}`,
-    voteScore: `${i + i}`
-  });
-}
-
 class MainApp extends React.Component {
   componentDidMount() {
     this.props.loadCategories()
