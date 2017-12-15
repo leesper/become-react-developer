@@ -10,6 +10,12 @@ import { guid } from "../utils"
 import NotFoundPage from "./NotFoundPage"
 
 class PostDetail extends React.Component {
+  componentDidMount() {
+    this.props.loadPostDetail(this.props.match.params.post_id)
+    this.props.loadCategories()
+    this.props.loadComments(this.props.match.params.post_id)
+  }
+
   onCommentEdit = (id, author, body) => {
     this.props.commentToEdit({
       id,
@@ -161,7 +167,10 @@ class PostDetail extends React.Component {
                   <Button
                     icon="delete"
                     type="danger"
-                    onClick={() => this.props.deleteComment(item.id)}
+                    onClick={() => {
+                      this.props.deleteComment(item.id)
+                      this.props.loadPostDetail(this.props.match.params.post_id)
+                    }}
                   />
                 ]}
                 >

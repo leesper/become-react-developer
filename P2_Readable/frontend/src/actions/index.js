@@ -6,7 +6,7 @@ import {
 
 import {
   commentsSuccess,
-  fetchComments,
+  loadComments,
   addCommentSuccess,
   addComment,
   editCommentSuccess,
@@ -44,7 +44,7 @@ export {
   changeCategory,
   loadCategories,
   commentsSuccess,
-  fetchComments,
+  loadComments,
   addCommentSuccess,
   addComment,
   editCommentSuccess,

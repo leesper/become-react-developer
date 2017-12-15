@@ -11,7 +11,7 @@ import {
 
 export const commentsSuccess = (comments) => ({type: COMMENTS_SUCCESS, comments})
 
-export const fetchComments = (postID) => ((dispatch, getState) => {
+export const loadComments = (postID) => ((dispatch, getState) => {
   ReadableAPI.getPostComments(postID)
   .then(
     rsp => rsp.json(),

@@ -1,12 +1,12 @@
-import React from "react"
 import { PostDetail } from "../components"
 import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
 import {
   loadPostDetail,
   loadPosts,
   changeCategory,
   loadCategories,
-  fetchComments,
+  loadComments,
   votePost,
   editPost,
   deletePost,
@@ -19,42 +19,6 @@ import {
   postEditable,
   commentEditable
 } from "../actions"
-
-class Poster extends React.Component {
-  componentDidMount() {
-    this.props.loadPostDetail(this.props.match.params.post_id)
-    this.props.loadCategories()
-    this.props.loadComments()
-  }
-
-  render() {
-    return (
-      <PostDetail
-        categories={this.props.categories}
-        post={this.props.post}
-        comments={this.props.comments}
-        comment={this.props.comment}
-        isPostEditable={this.props.isPostEditable}
-        isCommentEditable={this.props.isCommentEditable}
-        loadPostDetail={this.props.loadPostDetail}
-        loadPosts={this.props.loadPosts}
-        changeCategory={this.props.changeCategory}
-        votePost={this.props.votePost}
-        editPost={this.props.editPost}
-        deletePost={this.props.deletePost}
-        addComment={this.props.addComment}
-        editComment={this.props.editComment}
-        deleteComment={this.props.deleteComment}
-        voteComment={this.props.voteComment}
-        history={this.props.history}
-        postToEdit={this.props.postToEdit}
-        commentToEdit={this.props.commentToEdit}
-        postEditable={this.props.postEditable}
-        commentEditable={this.props.commentEditable}
-      />
-    )
-  }
-}
 
 const mapStateToProps = (state, ownProps) => {
   let post
@@ -73,56 +37,25 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadPostDetail: (postID) => {
-    dispatch(loadPostDetail(postID))
-  },
-  loadPosts: (category) => {
-    dispatch(loadPosts(category))
-  },
-  loadCategories: () => {
-    dispatch(loadCategories())
-  },
-  loadComments: () => {
-    dispatch(fetchComments(ownProps.match.params.post_id))
-  },
-  changeCategory: (category) => {
-    dispatch(changeCategory(category))
-  },
-  votePost: (id, option) => {
-    dispatch(votePost(id, option))
-  },
-  editPost: (id, title, body) => {
-    dispatch(editPost(id, title, body))
-  },
-  deletePost: (id) => {
-    dispatch(deletePost(id))
-  },
-  addComment: (id, timestamp, body, author, parentId) => {
-    dispatch(addComment(id, timestamp, body, author, parentId))
-  },
-  editComment: (id, timestamp, body) => {
-    dispatch(editComment(id, timestamp, body))
-  },
-  deleteComment: (id) => {
-    dispatch(deleteComment(id))
-  },
-  voteComment: (id, option) => {
-    dispatch(voteComment(id, option))
-  },
-  postToEdit: (post) => {
-    dispatch(postToEdit(post))
-  },
-  commentToEdit: (comment) => {
-    dispatch(commentToEdit(comment))
-  },
-  postEditable: (editable) => {
-    dispatch(postEditable(editable))
-  },
-  commentEditable: (editable) => {
-    dispatch(commentEditable(editable))
-  }
-})
+const mapDispatchToProps = (dispatch, ownProps) => (
+  bindActionCreators({
+    loadPostDetail,
+    loadPosts,
+    loadCategories,
+    loadComments,
+    changeCategory,
+    votePost,
+    editPost,
+    deletePost,
+    addComment,
+    editComment,
+    deleteComment,
+    voteComment,
+    postToEdit,
+    commentToEdit,
+    postEditable,
+    commentEditable
+  }, dispatch)
+)
 
-const Post = connect(mapStateToProps, mapDispatchToProps)(Poster)
-export default Post
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

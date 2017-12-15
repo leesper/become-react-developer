@@ -15,7 +15,6 @@ export const comments = (state = INITIAL_COMMENTS_STATE, action) => {
     case COMMENTS_SUCCESS:
       return action.comments
     case ADD_COMMENT_SUCCESS:
-      console.log("COMMENT", action.comment)
       return [
         ...state,
         action.comment
