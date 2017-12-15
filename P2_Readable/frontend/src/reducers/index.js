@@ -16,7 +16,7 @@ import {
   SORT_BY_VOTE, SORT_BY_DATE, SORT_BY_CATEGORY,
   POST_TO_EDIT, COMMENT_TO_EDIT,
   POST_EDITABLE, COMMENT_EDITABLE
-} from "../actions"
+} from "../actions/actionTypes"
 
 const categoryRoot = {
   name: "全部",
