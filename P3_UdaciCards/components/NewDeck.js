@@ -1,3 +1,4 @@
+"use strict"
 import React from "react"
 import { Text, TextInput, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from "react-native"
 
@@ -26,11 +27,11 @@ class NewDeck extends React.Component {
   }
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "stretch",
+    alignItems: "stretch"
   },
   title: {
     fontSize: 50,

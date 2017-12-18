@@ -1,3 +1,4 @@
+"use strict"
 import React from "react"
 import { Text, View, FlatList, ScrollView, StyleSheet } from "react-native"
 
@@ -59,7 +60,7 @@ const DeckList = (props) => (
   />
 )
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
