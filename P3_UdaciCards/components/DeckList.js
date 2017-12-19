@@ -4,49 +4,6 @@ import { Text, View, FlatList, ScrollView, StyleSheet, TouchableOpacity } from "
 import { connect } from "react-redux"
 import { pluralCards } from "../utils"
 
-const testData = [
-  {
-    title: "udacicards",
-    numOfCards: 3
-  },
-  {
-    title: "new deck",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 2",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 3",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 4",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 5",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 6",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 7",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 8",
-    numOfCards: 0
-  },
-  {
-    title: "New deck 9",
-    numOfCards: 0
-  }
-]
-
 const ListItem = ({title, questions, navigation}) => (
   <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Deck", {title, questions})}>
     <Text style={styles.title}>{title}</Text>
