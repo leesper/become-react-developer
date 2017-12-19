@@ -1,6 +1,13 @@
 "use strict"
 import React from "react"
-import { Text, TextInput, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from "react-native"
+import {
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  StyleSheet,
+  Keyboard,
+} from "react-native"
 
 class NewDeck extends React.Component {
   constructor(props) {
@@ -19,8 +26,8 @@ class NewDeck extends React.Component {
           placeholder="Deck Title"
           onChangeText={(deckTitle) => this.setState({deckTitle})}
         />
-        <TouchableOpacity style={styles.button}>
-          <Text style={{color: "white", fontSize: 20, fontWeight: "bold"}} >Submit</Text>
+        <TouchableOpacity style={styles.button} onPress={Keyboard.dismiss}>
+          <Text style={{color: "white", fontSize: 20}} >Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
@@ -44,7 +51,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginHorizontal: 20,
     borderRadius: 10,
-    textDecorationLine: "underline"
+    textDecorationLine: "underline",
+    paddingLeft: 5,
+    paddingVertical: 5,
   },
   button: {
     backgroundColor: "black",

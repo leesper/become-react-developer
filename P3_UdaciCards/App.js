@@ -6,6 +6,7 @@ import NewDeck from './components/NewDeck'
 import DeckList from "./components/DeckList"
 import Deck from "./components/Deck"
 import Quiz from "./components/Quiz"
+import NewQuestion from "./components/NewQuestion"
 
 const DeckListScreen = () => ( <DeckList /> )
 const NewDeckScreen = () => ( <NewDeck /> )
@@ -42,7 +43,7 @@ export default class App extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={{height: 20}} />
-        <Quiz />
+        <NewQuestion />
       </View>
     )
   }
