@@ -56,6 +56,18 @@ const HomeScreen = StackNavigator({
       title: "DECK"
     }
   },
+  AddCard: {
+    screen: NewQuestion,
+    navigationOptions: {
+      title: "NEW CARD"
+    }
+  },
+  StartQuiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: "QUIZ"
+    }
+  },
 }, stackNavConfig)
 
 export default class App extends React.Component {

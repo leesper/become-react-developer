@@ -2,14 +2,20 @@
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 
-const Deck = () => (
+const Deck = ({navigation}) => (
   <View style={styles.container}>
-    <Text style={styles.title}>udacicards</Text>
-    <Text style={styles.subTitle}>3 cards</Text>
-    <TouchableOpacity style={styles.button}>
+    <Text style={styles.title}>{navigation.state.params.title}</Text>
+    <Text style={styles.subTitle}>{navigation.state.params.numOfCards} cards</Text>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => navigation.navigate("AddCard")}
+      >
       <Text style={{fontSize: 20}}>Add Card</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={[styles.button, {backgroundColor: "black"}]}>
+    <TouchableOpacity
+      style={[styles.button, {backgroundColor: "black"}]}
+      onPress={() => navigation.navigate("StartQuiz")}
+      >
       <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
     </TouchableOpacity>
   </View>

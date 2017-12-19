@@ -45,18 +45,26 @@ const testData = [
   }
 ]
 
-const ListItem = ({title, numOfCards}) => (
-  <TouchableOpacity style={styles.container}>
+const ListItem = ({title, numOfCards, navigation}) => (
+  <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Deck", {title, numOfCards})}>
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.subTitle}>{numOfCards} cards</Text>
   </TouchableOpacity>
 )
 
-const DeckList = (props) => (
+const DeckList = ({ navigation }) => (
   <FlatList
     data={testData}
     keyExtractor={(item) => item.title}
-    renderItem={({item}) => <ListItem key={item.title} title={item.title} numOfCards={item.numOfCards} />}
+    renderItem={
+      ({item}) =>
+      <ListItem
+        key={item.title}
+        navigation={navigation}
+        title={item.title}
+        numOfCards={item.numOfCards}
+      />
+    }
   />
 )
 
