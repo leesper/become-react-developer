@@ -1,7 +1,7 @@
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 
-const Quiz = () => (
+const Quiz = ({navigation}) => (
   <View style={styles.container}>
     <Text style={styles.progress}>2/2</Text>
     <Text style={styles.title}>Does React Native work with Andriod?</Text>
