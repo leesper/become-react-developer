@@ -1,11 +1,13 @@
 "use strict"
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { pluralCards } from "../utils"
+
 
 const Deck = ({navigation}) => (
   <View style={styles.container}>
     <Text style={styles.title}>{navigation.state.params.title}</Text>
-    <Text style={styles.subTitle}>{navigation.state.params.numOfCards} cards</Text>
+    <Text style={styles.subTitle}>{pluralCards(navigation.state.params.questions.length)}</Text>
     <TouchableOpacity
       style={styles.button}
       onPress={() => navigation.navigate("AddCard")}

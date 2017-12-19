@@ -1,6 +1,8 @@
 "use strict"
 import React from "react"
 import { Text, View, FlatList, ScrollView, StyleSheet, TouchableOpacity } from "react-native"
+import { connect } from "react-redux"
+import { pluralCards } from "../utils"
 
 const testData = [
   {
@@ -45,24 +47,24 @@ const testData = [
   }
 ]
 
-const ListItem = ({title, numOfCards, navigation}) => (
-  <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Deck", {title, numOfCards})}>
+const ListItem = ({title, questions, navigation}) => (
+  <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Deck", {title, questions})}>
     <Text style={styles.title}>{title}</Text>
-    <Text style={styles.subTitle}>{numOfCards} cards</Text>
+    <Text style={styles.subTitle}>{pluralCards(questions.length)}</Text>
   </TouchableOpacity>
 )
 
-const DeckList = ({ navigation }) => (
+const DeckList = ({ decks, navigation }) => (
   <FlatList
-    data={testData}
+    data={decks}
     keyExtractor={(item) => item.title}
     renderItem={
       ({item}) =>
       <ListItem
         key={item.title}
-        navigation={navigation}
         title={item.title}
-        numOfCards={item.numOfCards}
+        questions={item.questions}
+        navigation={navigation}
       />
     }
   />
@@ -88,4 +90,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DeckList
+const mapStateToProps = (state, ownProps) => {
+  const titles = Object.keys(state)
+  return {
+    decks: titles.map(title => ({title, questions: state[title].questions}))
+  }
+}
+
+export default connect(mapStateToProps, null)(DeckList)
