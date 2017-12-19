@@ -20,7 +20,7 @@ class NewDeck extends React.Component {
           onChangeText={(deckTitle) => this.setState({deckTitle})}
         />
         <TouchableOpacity style={styles.button}>
-          <Text style={{color: "white", fontSize: 20}} >Submit</Text>
+          <Text style={{color: "white", fontSize: 20, fontWeight: "bold"}} >Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )

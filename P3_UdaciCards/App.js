@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TabNavigator } from "react-navigation"
 import NewDeck from './components/NewDeck'
 import DeckList from "./components/DeckList"
+import Deck from "./components/Deck"
 
 const DeckListScreen = () => ( <DeckList /> )
 const NewDeckScreen = () => ( <NewDeck /> )
@@ -38,7 +39,7 @@ const MainScreen = TabNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <MainScreen />
-    );
+      <Deck />
+    )
   }
 }
