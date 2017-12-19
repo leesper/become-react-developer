@@ -2,11 +2,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TabNavigator, StackNavigator } from "react-navigation"
+import { createStore } from "redux"
+import { Provider } from "react-redux"
 import NewDeck from './components/NewDeck'
 import DeckList from "./components/DeckList"
 import Deck from "./components/Deck"
 import Quiz from "./components/Quiz"
 import NewQuestion from "./components/NewQuestion"
+import reducer from "./reducers"
 
 const tabNavConfig = {
   tabBarOptions: {
@@ -73,9 +76,11 @@ const HomeScreen = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <HomeScreen />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <HomeScreen />
+        </View>
+      </Provider>
     )
   }
 }
