@@ -11,7 +11,8 @@ const ListItem = ({title, questions, navigation}) => (
   </TouchableOpacity>
 )
 
-const DeckList = ({ decks, navigation }) => (
+const DeckList = ({ decks, navigation }) => {
+  return (
   <FlatList
     data={decks}
     keyExtractor={(item) => item.title}
@@ -26,6 +27,7 @@ const DeckList = ({ decks, navigation }) => (
     }
   />
 )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +52,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   const titles = Object.keys(state)
   return {
-    decks: titles.map(title => ({title, questions: state[title].questions}))
+    decks: titles
+    .filter(title => !title.startsWith("_"))
+    .map(title => ({title, questions: state[title].questions}))
   }
 }
 

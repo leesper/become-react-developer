@@ -10,6 +10,7 @@ import Deck from "./components/Deck"
 import Quiz from "./components/Quiz"
 import NewQuestion from "./components/NewQuestion"
 import reducer from "./reducers"
+import configureStore from "./store"
 
 const tabNavConfig = {
   tabBarOptions: {
@@ -75,8 +76,9 @@ const HomeScreen = StackNavigator({
 
 export default class App extends React.Component {
   render() {
+    const { persistor, store } = configureStore()
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store} persistor={persistor}>
         <View style={{flex: 1}}>
           <HomeScreen />
         </View>
