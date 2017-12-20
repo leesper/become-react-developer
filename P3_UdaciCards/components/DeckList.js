@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import { pluralCards } from "../utils"
 
 const ListItem = ({title, questions, navigation}) => (
-  <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Deck", {title, questions})}>
+  <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Deck", {title})}>
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.subTitle}>{pluralCards(questions.length)}</Text>
   </TouchableOpacity>

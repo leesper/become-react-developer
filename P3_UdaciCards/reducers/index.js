@@ -48,7 +48,7 @@ const reducer = (state = INITIAL_STATE, action) => {
           title: action.title,
           questions: [
             ...state[action.title].questions,
-            card
+            action.card
           ]
         }
       } :
@@ -57,7 +57,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         [action.title]: {
           title: action.title,
           questions: [
-            card
+            action.card
           ]
         }
       }
