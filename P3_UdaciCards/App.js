@@ -11,6 +11,7 @@ import Quiz from "./components/Quiz"
 import NewQuestion from "./components/NewQuestion"
 import reducer from "./reducers"
 import configureStore from "./store"
+import { setLocalNotification } from "./utils"
 
 const tabNavConfig = {
   tabBarOptions: {
@@ -75,6 +76,10 @@ const HomeScreen = StackNavigator({
 }, stackNavConfig)
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     const { persistor, store } = configureStore()
     return (

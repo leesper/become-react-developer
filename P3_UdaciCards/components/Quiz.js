@@ -1,5 +1,6 @@
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { clearLocalNotification, setLocalNotification} from "../utils"
 
 class Quiz extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Quiz extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, {backgroundColor: "black"}]}
-            onPress={() => navigation.goBack()}
+            onPress={this.handleReturn}
             >
             <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Return</Text>
           </TouchableOpacity>
@@ -65,7 +66,12 @@ class Quiz extends React.Component {
     }))
   }
 
+  handleReturn = () => {
+    clearLocalNotification().then(setLocalNotification).then(this.props.navigation.goBack)
+  }
+
   resetQuestions = () => {
+    clearLocalNotification().then(setLocalNotification)
     this.setState({
       index: 0,
       isAnswer: false,

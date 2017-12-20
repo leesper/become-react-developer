@@ -1,7 +1,7 @@
 # 手机单词卡
 
 ## 说明
-本项目采用React Native+Navigation+Redux开发，用户可以添加卡片问题和答案，参与答题并查看自己的得分。
+本项目采用React Native+Navigation+Redux开发，用户可以添加卡片问题和答案，参与答题并查看自己的得分。该项目已在IPhone 6（iOS 10.3.2）测试通过。
 
 ## 如何启动
 

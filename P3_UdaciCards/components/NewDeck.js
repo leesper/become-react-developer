@@ -41,7 +41,7 @@ class NewDeck extends React.Component {
     Keyboard.dismiss()
     if (this.state.deckTitle && this.state.deckTitle !== "") {
       this.props.saveDeckTitle(this.state.deckTitle)
-      this.props.navigation.goBack()
+      this.props.navigation.navigate("Deck", {title: this.state.deckTitle})
       this.textInput.clear()
     }
   }
