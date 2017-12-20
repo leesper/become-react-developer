@@ -114,7 +114,7 @@ class PostDetail extends React.Component {
                 text={this.props.post ? this.props.post.voteScore : ""}
                 onLike={() => this.props.post && this.props.votePost(this.props.post.id, "upVote")}
                 onDislike={() => this.props.post && this.props.votePost(this.props.post.id, "downVote")}
-              />,
+              />
             </Col>
             <Col span={6}>
               <IconText
