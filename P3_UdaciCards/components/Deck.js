@@ -14,20 +14,19 @@ const Deck = ({navigation}) => (
       >
       <Text style={{fontSize: 20}}>Add Card</Text>
     </TouchableOpacity>
-    <TouchableOpacity
-      style={[styles.button, {backgroundColor: "black"}]}
-      onPress={
-        () => navigation.navigate("StartQuiz", {
-          questions: navigation.state.params.questions
-        })
-      }
-      >
-
-      {
-        navigation.state.params.questions.length > 0 &&
-        <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
-      }
-    </TouchableOpacity>
+    {
+      navigation.state.params.questions.length > 0 &&
+      <TouchableOpacity
+        style={[styles.button, {backgroundColor: "black"}]}
+        onPress={
+          () => navigation.navigate("StartQuiz", {
+            questions: navigation.state.params.questions
+          })
+        }
+        >
+          <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
+        </TouchableOpacity>
+    }
   </View>
 )
 

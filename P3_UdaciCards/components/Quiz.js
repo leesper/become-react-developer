@@ -1,6 +1,5 @@
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
-import { NavigationActions } from "react-navigation"
 
 class Quiz extends React.Component {
   constructor(props) {
@@ -27,7 +26,7 @@ class Quiz extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, {backgroundColor: "black"}]}
-            onPress={() => navigation.dispatch(NavigationActions.back())}
+            onPress={() => navigation.goBack()}
             >
             <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Return</Text>
           </TouchableOpacity>

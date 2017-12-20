@@ -8,6 +8,9 @@ import {
   StyleSheet,
   Keyboard,
 } from "react-native"
+import { saveDeckTitle } from "../actions/actionCreators"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
 
 class NewDeck extends React.Component {
   constructor(props) {
@@ -25,12 +28,22 @@ class NewDeck extends React.Component {
           style={styles.input}
           placeholder="Deck Title"
           onChangeText={(deckTitle) => this.setState({deckTitle})}
+          ref={input => { this.textInput = input }}
         />
-        <TouchableOpacity style={styles.button} onPress={Keyboard.dismiss}>
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
           <Text style={{color: "white", fontSize: 20}} >Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
+  }
+
+  handleSubmit = () => {
+    Keyboard.dismiss()
+    if (this.state.deckTitle && this.state.deckTitle !== "") {
+      this.props.saveDeckTitle(this.state.deckTitle)
+      this.props.navigation.goBack()
+      this.textInput.clear()
+    }
   }
 }
 
@@ -66,4 +79,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+const mapDispatchToProps = (dispatch, ownProps) => (
+  bindActionCreators({saveDeckTitle}, dispatch)
+)
+
+export default connect(null, mapDispatchToProps)(NewDeck)
