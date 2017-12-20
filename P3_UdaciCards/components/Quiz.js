@@ -1,21 +1,87 @@
 import React from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { NavigationActions } from "react-navigation"
 
-const Quiz = ({navigation}) => (
-  <View style={styles.container}>
-    <Text style={styles.progress}>2/2</Text>
-    <Text style={styles.title}>Does React Native work with Andriod?</Text>
-    <TouchableOpacity style={styles.switch}>
-      <Text style={{color: "red", fontSize: 20}}>Answer</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={[styles.button, {backgroundColor: "green"}]}>
-      <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Correct</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={[styles.button, {backgroundColor: "red"}]}>
-      <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Incorrect</Text>
-    </TouchableOpacity>
-  </View>
-)
+class Quiz extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      index: 0,
+      isAnswer: false,
+      corrects: 0
+    }
+  }
+
+  render() {
+    const { navigation } = this.props
+    const questions = navigation.state.params.questions
+
+    if (this.state.index === questions.length) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            You have correctly answered {this.state.corrects} questions out of {questions.length}
+          </Text>
+          <TouchableOpacity style={[styles.button, {backgroundColor: "white"}]} onPress={this.resetQuestions}>
+            <Text style={{textAlign: "center", fontSize: 20, color: "black"}}>Test Again</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, {backgroundColor: "black"}]}
+            onPress={() => navigation.dispatch(NavigationActions.back())}
+            >
+            <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Return</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.progress}>
+          {this.state.index+1}/{questions.length}
+        </Text>
+        <Text style={styles.title}>
+          {
+            this.state.isAnswer ?
+            questions[this.state.index].answer :
+            questions[this.state.index].question
+          }
+        </Text>
+        <TouchableOpacity style={styles.switch} onPress={this.handleShowAnswer}>
+          <Text style={{color: "red", fontSize: 20}}>{this.state.isAnswer ? "Question" : "Answer"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, {backgroundColor: "green"}]} onPress={() => this.handleQuiz(true)}>
+          <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Correct</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, {backgroundColor: "red"}]} onPress={() => this.handleQuiz(false)}>
+          <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Incorrect</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  handleShowAnswer = () => {
+    this.setState((prev, props) => ({
+      isAnswer: !prev.isAnswer
+    }))
+  }
+
+  resetQuestions = () => {
+    this.setState({
+      index: 0,
+      isAnswer: false,
+      corrects: 0
+    })
+  }
+
+  handleQuiz = (isCorrect) => {
+    const increment = isCorrect ? 1 : 0
+    this.setState((prev, props) => ({
+      index: prev.index + 1,
+      corrects: prev.corrects + increment
+    }))
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
