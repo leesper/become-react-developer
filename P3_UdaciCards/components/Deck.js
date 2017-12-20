@@ -1,34 +1,62 @@
 "use strict"
 import React from "react"
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from "react-native"
 import { pluralCards } from "../utils"
 import { connect } from "react-redux"
 
-const Deck = ({navigation, questions}) => (
-  <View style={styles.container}>
-    <Text style={styles.title}>{navigation.state.params.title}</Text>
-    <Text style={styles.subTitle}>{pluralCards(questions.length)}</Text>
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => navigation.navigate("AddCard", {title: navigation.state.params.title})}
-      >
-      <Text style={{fontSize: 20}}>Add Card</Text>
-    </TouchableOpacity>
-    {
-      questions.length > 0 &&
-      <TouchableOpacity
-        style={[styles.button, {backgroundColor: "black"}]}
-        onPress={
-          () => navigation.navigate("StartQuiz", {
-            questions: questions
-          })
-        }
-        >
-          <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
-        </TouchableOpacity>
+class Deck extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      titleOpacity: new Animated.Value(0),
+      subTitleOpacity: new Animated.Value(0)
     }
-  </View>
-)
+  }
+
+  componentDidMount() {
+    const { titleOpacity, subTitleOpacity } = this.state
+    Animated.timing(titleOpacity, { toValue: 1, duration: 2000}).start()
+    Animated.timing(subTitleOpacity, { toValue: 1, duration: 2000}).start()
+  }
+
+  render() {
+    const { navigation, questions } = this.props
+    const { titleOpacity, subTitleOpacity} = this.state
+    return (
+      <View style={styles.container}>
+        <Animated.Text
+          style={[styles.title, { opacity: titleOpacity }]}
+          >
+          {navigation.state.params.title}
+        </Animated.Text>
+        <Animated.Text
+          style={[styles.subTitle, { opacity: subTitleOpacity }]}
+          >
+          {pluralCards(questions.length)}
+        </Animated.Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("AddCard", {title: navigation.state.params.title})}
+          >
+          <Text style={{fontSize: 20}}>Add Card</Text>
+        </TouchableOpacity>
+        {
+          questions.length > 0 &&
+          <TouchableOpacity
+            style={[styles.button, {backgroundColor: "black"}]}
+            onPress={
+              () => navigation.navigate("StartQuiz", {
+                questions: questions
+              })
+            }
+            >
+              <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
+            </TouchableOpacity>
+        }
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
