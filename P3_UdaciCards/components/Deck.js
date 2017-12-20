@@ -22,7 +22,11 @@ const Deck = ({navigation}) => (
         })
       }
       >
-      <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
+
+      {
+        navigation.state.params.questions.length > 0 &&
+        <Text style={{color: "white", fontSize: 20}}>Start Quiz</Text>
+      }
     </TouchableOpacity>
   </View>
 )
