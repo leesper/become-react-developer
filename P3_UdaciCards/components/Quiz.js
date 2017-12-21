@@ -17,48 +17,52 @@ class Quiz extends React.Component {
     const questions = navigation.state.params.questions
 
     if (this.state.index === questions.length) {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.title}>
-            You have correctly answered {this.state.corrects} questions out of {questions.length}
-          </Text>
-          <TouchableOpacity style={[styles.button, {backgroundColor: "white"}]} onPress={this.resetQuestions}>
-            <Text style={{textAlign: "center", fontSize: 20, color: "black"}}>Test Again</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, {backgroundColor: "black"}]}
-            onPress={this.handleReturn}
-            >
-            <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Return</Text>
-          </TouchableOpacity>
-        </View>
-      )
+      return this.resultCard(questions)
     }
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.progress}>
-          {this.state.index+1}/{questions.length}
-        </Text>
-        <Text style={styles.title}>
-          {
-            this.state.isAnswer ?
-            questions[this.state.index].answer :
-            questions[this.state.index].question
-          }
-        </Text>
-        <TouchableOpacity style={styles.switch} onPress={this.handleShowAnswer}>
-          <Text style={{color: "red", fontSize: 20}}>{this.state.isAnswer ? "Question" : "Answer"}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: "green"}]} onPress={() => this.handleQuiz(true)}>
-          <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Correct</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: "red"}]} onPress={() => this.handleQuiz(false)}>
-          <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Incorrect</Text>
-        </TouchableOpacity>
-      </View>
-    )
+    return this.questionCard(questions)
   }
+
+  questionCard = (questions) => (
+    <View style={styles.container}>
+      <Text style={styles.progress}>
+        {this.state.index+1}/{questions.length}
+      </Text>
+      <Text style={styles.title}>
+        {
+          this.state.isAnswer ?
+          questions[this.state.index].answer :
+          questions[this.state.index].question
+        }
+      </Text>
+      <TouchableOpacity style={styles.switch} onPress={this.handleShowAnswer}>
+        <Text style={{color: "red", fontSize: 20}}>{this.state.isAnswer ? "Question" : "Answer"}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, {backgroundColor: "green"}]} onPress={() => this.handleQuiz(true)}>
+        <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Correct</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, {backgroundColor: "red"}]} onPress={() => this.handleQuiz(false)}>
+        <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Incorrect</Text>
+      </TouchableOpacity>
+    </View>
+  )
+
+  resultCard = (questions) => (
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        You have correctly answered {this.state.corrects} questions out of {questions.length}
+      </Text>
+      <TouchableOpacity style={[styles.button, {backgroundColor: "white"}]} onPress={this.resetQuestions}>
+        <Text style={{textAlign: "center", fontSize: 20, color: "black"}}>Test Again</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, {backgroundColor: "black"}]}
+        onPress={this.handleReturn}
+        >
+        <Text style={{textAlign: "center", fontSize: 20, color: "white"}}>Return</Text>
+      </TouchableOpacity>
+    </View>
+  )
 
   handleShowAnswer = () => {
     this.setState((prev, props) => ({

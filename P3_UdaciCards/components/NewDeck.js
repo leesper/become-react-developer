@@ -30,7 +30,11 @@ class NewDeck extends React.Component {
           onChangeText={(deckTitle) => this.setState({deckTitle})}
           ref={input => { this.textInput = input }}
         />
-        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: this.state.deckTitle === "" ? "gray" : "black" }]}
+          onPress={this.handleSubmit}
+          disabled={this.state.deckTitle === ""}
+          >
           <Text style={{color: "white", fontSize: 20}} >Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -43,6 +47,9 @@ class NewDeck extends React.Component {
       this.props.saveDeckTitle(this.state.deckTitle)
       this.props.navigation.navigate("Deck", {title: this.state.deckTitle})
       this.textInput.clear()
+      this.setState({
+        deckTitle: ""
+      })
     }
   }
 }
