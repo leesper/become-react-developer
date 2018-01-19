@@ -21,3 +21,7 @@ Readable是基于ReactJS+Redux开发的匿名内容和评论Web应用，用户�
 ![UdaciCards](img/udaci_cards.jpg)
 
 “手机单词卡”是基于React Native+Navigation+Redux开发的Native App，可以运行在安卓和苹果设备上。用户可以添加卡片问题和答案，参与答题并查看自己的得分。本人负责整个项目的开发工作，为了完成该项目，我首先开发了各主要的界面，用TabNavigator和StackNavigator把它们连接起来，先看看界面效果。然后在此基础上编写界面之间的跳转逻辑，并确定各页面之间要传递的参数。然后设计应用程序要维护的状态，并编写相应的actions和reducers。最后我使用redux-persist库将redux维护的状态持久化到AsyncStorage中，这样就能够保存用户添加的问题卡片信息。通过完成该项目，我练习了使用ReactJS框架开发原生App应用的能力。
+
+## React开发者纳米学位证书
+
+![React](img/react.jpg)
